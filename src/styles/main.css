@@ -113,6 +113,17 @@ code, pre, kbd, samp {
   transform: translateY(-4px);
 }
 
+@media (max-width: 767.98px) {
+  .nav-brand {
+    font-size: var(--font-sm);
+    gap: 6px;
+    max-width: calc(100vw - 110px);
+  }
+  .dsa-title-anim {
+    max-width: calc(100vw - 150px);
+  }
+}
+
 .nav-brand img {
   width: 32px;
   height: 32px;

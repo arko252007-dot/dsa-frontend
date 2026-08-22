@@ -42,25 +42,25 @@ export const Navbar = {
     return `
       <header class="app-navbar" id="appNavbarHeader">
         <div class="container-fluid px-3 px-md-4 px-lg-5">
-          <div class="row align-items-center g-0">
+          <div class="d-flex align-items-center justify-content-between g-0 w-100" style="min-width: 0;">
             
             <!-- 1. LEFT SECTION: Logo & Rotating Title -->
-            <div class="col-auto col-md-4 d-flex align-items-center gap-2 overflow-hidden pe-2">
-              <button class="btn btn-sm btn-outline-secondary ${isAuth ? 'd-md-none' : 'd-none'} d-flex align-items-center justify-content-center p-0 me-1"
+            <div class="d-flex align-items-center gap-2 overflow-hidden pe-2" style="min-width: 0; flex: 1 1 auto; max-width: fit-content;">
+              <button class="btn btn-sm btn-outline-secondary ${isAuth ? 'd-md-none' : 'd-none'} d-flex align-items-center justify-content-center p-0 flex-shrink-0"
                       id="mobileMenuToggleBtn"
                       style="width: 32px; height: 32px;"
                       aria-label="Open Menu">
                 <i class="bi bi-list fs-6"></i>
               </button>
 
-              <a href="#/" class="nav-brand text-truncate" id="navBrandLink" title="${current.desc}">
+              <a href="#/" class="nav-brand text-truncate" id="navBrandLink" title="${current.desc}" style="min-width: 0;">
                 <img src="/logo.png" alt="DSA Logo" onerror="this.onerror=null; this.src='/Logo.png';">
-                <span class="dsa-title-anim fw-semibold" id="navBrandText">${current.title}</span>
+                <span class="dsa-title-anim fw-semibold text-truncate" id="navBrandText">${current.title}</span>
               </a>
             </div>
 
             <!-- 2. CENTER SECTION: Intentional Segmented Nav Tabs -->
-            <div class="col-md-4 d-none d-md-flex justify-content-center">
+            <div class="d-none d-md-flex justify-content-center flex-shrink-0 mx-2">
               <nav class="nav-segmented-tabs ${isAuth ? '' : 'd-none'}" id="desktopNavLinks">
                 <a href="#/" class="nav-tab-item" data-route="/">
                   <i class="bi bi-grid-1x2"></i>
@@ -77,10 +77,11 @@ export const Navbar = {
               </nav>
             </div>
 
-            <!-- 3. RIGHT SECTION: Unified Single Developer Control Group -->
-            <div class="col col-md-4 ms-auto d-flex align-items-center justify-content-end ps-2">
+            <!-- 3. RIGHT SECTION: Controls (Desktop: Full Meta + Logout + Theme; Mobile: ONLY Theme Toggle) -->
+            <div class="d-flex align-items-center justify-content-end ps-2 flex-shrink-0">
               
-              <div class="nav-control-bar ${isAuth ? '' : 'd-none'}" id="navAuthSection">
+              <!-- Desktop Authenticated Control Bar -->
+              <div class="nav-control-bar ${isAuth ? 'd-none d-md-inline-flex' : 'd-none'}" id="navAuthSection">
                 <div class="nav-user-meta text-truncate" style="max-width: 170px;">
                   <span class="user-handle">${username}</span>
                   <span class="user-stats-pill">${solvedCount} solved</span>
@@ -94,8 +95,17 @@ export const Navbar = {
                 </button>
               </div>
 
+              <!-- Mobile Authenticated Theme Button (Clean, Standalone) -->
+              <button type="button" class="nav-control-action border rounded d-md-none ${isAuth ? 'd-flex' : 'd-none'} align-items-center justify-content-center flex-shrink-0"
+                      id="themeToggleBtnMobile"
+                      style="width: 32px; height: 32px;"
+                      aria-label="Toggle Theme"
+                      title="Toggle Theme">
+                <i class="bi bi-moon-stars" id="themeIconMobile"></i>
+              </button>
+
               <!-- Unauthenticated theme toggle -->
-              <button class="nav-control-action border rounded ${isAuth ? 'd-none' : 'd-flex'} align-items-center justify-content-center"
+              <button class="nav-control-action border rounded ${isAuth ? 'd-none' : 'd-flex'} align-items-center justify-content-center flex-shrink-0"
                       id="themeToggleBtnGuest"
                       style="width: 32px; height: 32px;"
                       aria-label="Toggle Theme">
@@ -142,24 +152,25 @@ export const Navbar = {
   },
 
   init() {
+    const navLogoutBtn = document.getElementById('navLogoutBtn');
+    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
     const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
+    const themeToggleBtnGuest = document.getElementById('themeToggleBtnGuest');
     const themeIcon = document.getElementById('themeIcon');
-
+    const themeIconMobile = document.getElementById('themeIconMobile');
+    const themeIconGuest = document.getElementById('themeIconGuest');
+    const navBrandText = document.getElementById('navBrandText');
+    const navBrandLink = document.getElementById('navBrandLink');
     const mobileMenuToggleBtn = document.getElementById('mobileMenuToggleBtn');
     const mobileDrawerCloseBtn = document.getElementById('mobileDrawerCloseBtn');
     const mobileDrawerBackdrop = document.getElementById('mobileDrawerBackdrop');
-    const navLogoutBtn = document.getElementById('navLogoutBtn');
-    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
 
-    const navBrandLink = document.getElementById('navBrandLink');
-    const navBrandText = document.getElementById('navBrandText');
-
-    const themeToggleBtnGuest = document.getElementById('themeToggleBtnGuest');
-    const themeIconGuest = document.getElementById('themeIconGuest');
-
+    // Theme toggler display update
     const updateThemeDisplay = (theme) => {
       const iconClass = theme === 'dark' ? 'bi bi-sun text-warning' : 'bi bi-moon-stars text-secondary';
       if (themeIcon) themeIcon.className = iconClass;
+      if (themeIconMobile) themeIconMobile.className = iconClass;
       if (themeIconGuest) themeIconGuest.className = iconClass;
     };
 
@@ -171,6 +182,12 @@ export const Navbar = {
 
     if (themeToggleBtn) {
       themeToggleBtn.addEventListener('click', () => {
+        ThemeManager.toggleTheme();
+      });
+    }
+
+    if (themeToggleBtnMobile) {
+      themeToggleBtnMobile.addEventListener('click', () => {
         ThemeManager.toggleTheme();
       });
     }
