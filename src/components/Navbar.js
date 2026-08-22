@@ -42,25 +42,25 @@ export const Navbar = {
     return `
       <header class="app-navbar" id="appNavbarHeader">
         <div class="container-fluid px-3 px-md-4 px-lg-5">
-          <div class="d-flex align-items-center justify-content-between g-0 w-100" style="min-width: 0;">
+          <div class="navbar-grid-layout">
             
             <!-- 1. LEFT SECTION: Logo & Rotating Title -->
-            <div class="d-flex align-items-center gap-2 overflow-hidden pe-2" style="min-width: 0; flex: 1 1 auto; max-width: fit-content;">
-              <button class="btn btn-sm btn-outline-secondary ${isAuth ? 'd-md-none' : 'd-none'} d-flex align-items-center justify-content-center p-0 flex-shrink-0"
+            <div class="navbar-left-col">
+              <button class="btn btn-sm btn-outline-secondary ${isAuth ? 'd-md-none' : 'd-none'} d-flex align-items-center justify-content-center p-0 me-2 flex-shrink-0"
                       id="mobileMenuToggleBtn"
                       style="width: 32px; height: 32px;"
                       aria-label="Open Menu">
                 <i class="bi bi-list fs-6"></i>
               </button>
 
-              <a href="#/" class="nav-brand text-truncate" id="navBrandLink" title="${current.desc}" style="min-width: 0;">
+              <a href="#/" class="nav-brand text-truncate" id="navBrandLink" title="${current.desc}">
                 <img src="/logo.png" alt="DSA Logo" onerror="this.onerror=null; this.src='/Logo.png';">
                 <span class="dsa-title-anim fw-semibold text-truncate" id="navBrandText">${current.title}</span>
               </a>
             </div>
 
-            <!-- 2. CENTER SECTION: Intentional Segmented Nav Tabs -->
-            <div class="d-none d-md-flex justify-content-center flex-shrink-0 mx-2">
+            <!-- 2. CENTER SECTION: Exact Center Segmented Nav Tabs -->
+            <div class="navbar-center-col d-none d-md-flex">
               <nav class="nav-segmented-tabs ${isAuth ? '' : 'd-none'}" id="desktopNavLinks">
                 <a href="#/" class="nav-tab-item" data-route="/">
                   <i class="bi bi-grid-1x2"></i>
@@ -78,7 +78,7 @@ export const Navbar = {
             </div>
 
             <!-- 3. RIGHT SECTION: Controls (Desktop: Full Meta + Logout + Theme; Mobile: ONLY Theme Toggle) -->
-            <div class="d-flex align-items-center justify-content-end ps-2 flex-shrink-0">
+            <div class="navbar-right-col">
               
               <!-- Desktop Authenticated Control Bar -->
               <div class="nav-control-bar ${isAuth ? 'd-none d-md-inline-flex' : 'd-none'}" id="navAuthSection">
@@ -111,8 +111,6 @@ export const Navbar = {
                       aria-label="Toggle Theme">
                 <i class="bi bi-moon-stars" id="themeIconGuest"></i>
               </button>
-
-            </div>
 
           </div>
         </div>

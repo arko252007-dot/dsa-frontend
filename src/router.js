@@ -4,6 +4,7 @@ import { PracticePage } from './pages/PracticePage.js';
 import { VisualizationsHub } from './pages/VisualizationsHub.js';
 import { VisualizerPage } from './pages/VisualizerPage.js';
 import { Navbar } from './components/Navbar.js';
+import { RotatePrompt } from './components/RotatePrompt.js';
 import { StorageManager } from './services/storage.js';
 import { Toast } from './components/Toast.js';
 
@@ -87,6 +88,9 @@ export const Router = {
 
     // Update active navbar state
     Navbar.updateActiveRoute(path);
+
+    // Prompt device rotation if entering visualization pages on mobile portrait
+    RotatePrompt.checkAndPrompt(path);
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'instant' });

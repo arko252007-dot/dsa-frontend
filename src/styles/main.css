@@ -69,6 +69,44 @@ code, pre, kbd, samp {
   align-items: center;
 }
 
+.navbar-grid-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: var(--space-2);
+}
+
+@media (max-width: 767.98px) {
+  .navbar-grid-layout {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+.navbar-left-col {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+.navbar-center-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar-right-col {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
 .nav-brand {
   display: flex;
   align-items: center;
@@ -1155,6 +1193,74 @@ code, pre, kbd, samp {
   padding: var(--space-4) 0;
   color: var(--text-muted);
   font-size: var(--font-xs);
+}
+
+/* ─── Rotate Device Prompt Modal ───────────────────────────────────────────── */
+.rotate-prompt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1060;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeInPrompt 200ms ease;
+}
+
+.rotate-prompt-modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+}
+
+.rotate-icon-container {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-subsurface);
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+}
+
+.rotate-phone-box {
+  font-size: 2.2rem;
+  color: var(--primary);
+  animation: rotatePhoneAnim 2.5s infinite ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes rotatePhoneAnim {
+  0%, 15% {
+    transform: rotate(0deg);
+  }
+  45%, 80% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes fadeInPrompt {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 
