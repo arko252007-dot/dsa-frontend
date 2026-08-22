@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA with C - Linked List Visualization</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ll-container {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+            padding: 20px;
+            background-color: var(--bs-light);
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .ll-node-wrapper {
+            display: flex;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+        .ll-node {
+            display: flex;
+            border: 2px solid var(--bs-primary);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            min-width: 80px;
+        }
+        .ll-node.highlight {
+            border-color: var(--bs-warning);
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
+        }
+        .ll-node.new-node {
+            border-color: var(--bs-success);
+            background-color: #d1e7dd;
+        }
+        .ll-node.delete-node {
+            border-color: var(--bs-danger);
+            background-color: #f8d7da;
+        }
+        .ll-data {
+            padding: 10px 15px;
+            font-weight: bold;
+            border-right: 2px solid var(--bs-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .ll-next {
+            padding: 10px;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        .ll-arrow {
+            font-size: 2rem;
+            color: var(--bs-secondary);
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        .ll-arrow.highlight {
+            color: var(--bs-warning);
+        }
+        .code-block {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            height: 350px;
+            overflow-y: auto;
+            white-space: pre;
+        }
+        .code-line {
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .code-line.active {
+            background-color: #3e4451;
+            color: #e5c07b;
+            font-weight: bold;
+            border-left: 3px solid #e5c07b;
+        }
+        .head-pointer {
+            position: absolute;
+            top: -30px;
+            left: 0;
+            color: var(--bs-danger);
+            font-weight: bold;
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav-placeholder"></div>
+
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold text-success mb-0">Linked List Visualization</h2>
+            <a href="visualization.html" class="btn btn-outline-secondary rounded-pill shadow-sm"><i class="bi bi-arrow-left"></i> Back</a>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0 h-100" style="border-radius: 15px;">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="row g-2 mb-4 align-items-end">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold small text-muted">Value to Insert:</label>
+                                <input type="number" id="nodeValue" class="form-control" placeholder="e.g. 42">
+                            </div>
+                            <div class="col-md-9 d-flex gap-2 flex-wrap">
+                                <button id="btnInsertHead" class="btn btn-primary rounded-pill flex-grow-1 shadow-sm">Insert Head</button>
+                                <button id="btnInsertTail" class="btn btn-primary rounded-pill flex-grow-1 shadow-sm">Insert Tail</button>
+                                <button id="btnDelete" class="btn btn-danger rounded-pill flex-grow-1 shadow-sm">Delete Node (Value)</button>
+                                <button id="btnClear" class="btn btn-outline-secondary rounded-pill shadow-sm">Clear</button>
+                            </div>
+                        </div>
+
+                        <div class="ll-container position-relative" id="llContainer">
+                            <!-- Nodes will be injected here -->
+                            <div class="text-muted fw-bold" id="emptyListText" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">List is Empty</div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <h5 id="statusText" class="text-muted fw-semibold">Waiting for operation...</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow-lg border-0 h-100" style="border-radius: 15px;">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-terminal"></i> Dry Run Code</h5>
+                        <div class="code-block" id="codeBlock">Select an operation to see the code.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="nav-script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const llContainer = document.getElementById('llContainer');
+            const emptyListText = document.getElementById('emptyListText');
+            const nodeValueInput = document.getElementById('nodeValue');
+            const btnInsertHead = document.getElementById('btnInsertHead');
+            const btnInsertTail = document.getElementById('btnInsertTail');
+            const btnDelete = document.getElementById('btnDelete');
+            const btnClear = document.getElementById('btnClear');
+            const statusText = document.getElementById('statusText');
+            const codeBlock = document.getElementById('codeBlock');
+
+            let linkedList = [];
+            let isAnimating = false;
+
+            const codeSnippets = {
+                insertHead: [
+                    "struct Node* newNode = malloc(sizeof(struct Node));",
+                    "newNode->data = val;",
+                    "newNode->next = head;",
+                    "head = newNode;"
+                ],
+                insertTail: [
+                    "struct Node* newNode = malloc(sizeof(struct Node));",
+                    "newNode->data = val;",
+                    "newNode->next = NULL;",
+                    "if (head == NULL) {",
+                    "    head = newNode;",
+                    "    return;",
+                    "}",
+                    "struct Node* temp = head;",
+                    "while (temp->next != NULL) {",
+                    "    temp = temp->next;",
+                    "}",
+                    "temp->next = newNode;"
+                ],
+                deleteNode: [
+                    "if (head == NULL) return;",
+                    "if (head->data == val) {",
+                    "    struct Node* temp = head;",
+                    "    head = head->next;",
+                    "    free(temp);",
+                    "    return;",
+                    "}",
+                    "struct Node* temp = head;",
+                    "while (temp->next != NULL && temp->next->data != val) {",
+                    "    temp = temp->next;",
+                    "}",
+                    "if (temp->next == NULL) return;",
+                    "struct Node* nodeToDelete = temp->next;",
+                    "temp->next = temp->next->next;",
+                    "free(nodeToDelete);"
+                ]
+            };
+
+            const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+            function renderCode(type) {
+                codeBlock.innerHTML = codeSnippets[type].map((line, i) => `<div class="code-line" id="line-${i}">${line.replace(/ /g, '&nbsp;')}</div>`).join('');
+            }
+
+            function highlightLine(lineNum) {
+                document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
+                if (lineNum !== undefined && lineNum >= 0) {
+                    const line = document.getElementById(`line-${lineNum}`);
+                    if (line) {
+                        line.classList.add('active');
+                        line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            }
+
+            function createNodeElement(value, isHead = false) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'll-node-wrapper';
+                
+                const node = document.createElement('div');
+                node.className = 'll-node';
+                
+                if(isHead) {
+                    const headPtr = document.createElement('div');
+                    headPtr.className = 'head-pointer';
+                    headPtr.innerHTML = 'HEAD <i class="bi bi-arrow-down"></i>';
+                    wrapper.style.position = 'relative';
+                    wrapper.appendChild(headPtr);
+                }
+
+                node.innerHTML = `
+                    <div class="ll-data">${value}</div>
+                    <div class="ll-next">NULL</div>
+                `;
+                
+                wrapper.appendChild(node);
+                return wrapper;
+            }
+
+            function createArrowElement() {
+                const arrow = document.createElement('i');
+                arrow.className = 'bi bi-arrow-right ll-arrow';
+                return arrow;
+            }
+
+            function renderListUI() {
+                llContainer.innerHTML = '';
+                if (linkedList.length === 0) {
+                    llContainer.appendChild(emptyListText);
+                    emptyListText.style.display = 'block';
+                    return;
+                }
+                emptyListText.style.display = 'none';
+
+                linkedList.forEach((val, index) => {
+                    const nodeWrapper = createNodeElement(val, index === 0);
+                    // If not last element, change next to pointer style
+                    if (index < linkedList.length - 1) {
+                        nodeWrapper.querySelector('.ll-next').innerHTML = '<i class="bi bi-circle-fill" style="font-size:0.5rem;"></i>';
+                    }
+                    llContainer.appendChild(nodeWrapper);
+
+                    if (index < linkedList.length - 1) {
+                        llContainer.appendChild(createArrowElement());
+                    }
+                });
+            }
+
+            function disableControls(disable) {
+                isAnimating = disable;
+                btnInsertHead.disabled = disable;
+                btnInsertTail.disabled = disable;
+                btnDelete.disabled = disable;
+                btnClear.disabled = disable;
+                nodeValueInput.disabled = disable;
+            }
+
+            async function insertHead() {
+                const val = nodeValueInput.value;
+                if (!val) return;
+                if (isAnimating) return;
+                disableControls(true);
+
+                renderCode('insertHead');
+                
+                statusText.innerHTML = `Creating new node with value ${val}...`;
+                highlightLine(0); await sleep(800);
+                highlightLine(1); await sleep(800);
+                
+                // Visual insert effect
+                linkedList.unshift(val);
+                renderListUI();
+                const firstNode = llContainer.querySelector('.ll-node');
+                firstNode.classList.add('new-node');
+                
+                statusText.innerHTML = `Setting new node's next to current head...`;
+                highlightLine(2); await sleep(800);
+                
+                statusText.innerHTML = `Updating HEAD pointer...`;
+                highlightLine(3); await sleep(800);
+                
+                firstNode.classList.remove('new-node');
+                statusText.innerHTML = `Node ${val} inserted at head.`;
+                highlightLine(-1);
+                disableControls(false);
+                nodeValueInput.value = '';
+            }
+
+            async function insertTail() {
+                const val = nodeValueInput.value;
+                if (!val) return;
+                if (isAnimating) return;
+                disableControls(true);
+
+                renderCode('insertTail');
+                
+                statusText.innerHTML = `Creating new node with value ${val}...`;
+                highlightLine(0); await sleep(800);
+                highlightLine(1); await sleep(800);
+                highlightLine(2); await sleep(800);
+
+                if (linkedList.length === 0) {
+                    highlightLine(3); await sleep(800);
+                    highlightLine(4); await sleep(800);
+                    linkedList.push(val);
+                    renderListUI();
+                    llContainer.querySelector('.ll-node').classList.add('new-node');
+                    await sleep(800);
+                    llContainer.querySelector('.ll-node').classList.remove('new-node');
+                    highlightLine(5); await sleep(800);
+                } else {
+                    highlightLine(7); await sleep(800);
+                    statusText.innerHTML = `Traversing to the end of the list...`;
+                    
+                    const nodes = llContainer.querySelectorAll('.ll-node');
+                    const arrows = llContainer.querySelectorAll('.ll-arrow');
+                    
+                    for (let i = 0; i < linkedList.length; i++) {
+                        highlightLine(8); await sleep(600);
+                        nodes[i].classList.add('highlight');
+                        if (i < linkedList.length - 1) {
+                            highlightLine(9); await sleep(600);
+                            arrows[i].classList.add('highlight');
+                            await sleep(400);
+                            nodes[i].classList.remove('highlight');
+                            arrows[i].classList.remove('highlight');
+                        }
+                    }
+                    
+                    highlightLine(11); await sleep(800);
+                    linkedList.push(val);
+                    renderListUI();
+                    const newNodesList = llContainer.querySelectorAll('.ll-node');
+                    newNodesList[newNodesList.length - 1].classList.add('new-node');
+                    statusText.innerHTML = `Node ${val} inserted at tail.`;
+                    await sleep(800);
+                    newNodesList[newNodesList.length - 1].classList.remove('new-node');
+                }
+                
+                highlightLine(-1);
+                disableControls(false);
+                nodeValueInput.value = '';
+            }
+
+            async function deleteNode() {
+                const val = nodeValueInput.value;
+                if (!val) return;
+                if (isAnimating) return;
+                disableControls(true);
+
+                renderCode('deleteNode');
+                
+                highlightLine(0); await sleep(800);
+                if (linkedList.length === 0) {
+                    statusText.innerHTML = `List is empty, nothing to delete.`;
+                    disableControls(false);
+                    return;
+                }
+
+                highlightLine(1); await sleep(800);
+                if (linkedList[0] == val) {
+                    statusText.innerHTML = `Found ${val} at head. Deleting...`;
+                    highlightLine(2); await sleep(800);
+                    highlightLine(3); await sleep(800);
+                    
+                    const headNode = llContainer.querySelector('.ll-node');
+                    headNode.classList.add('delete-node');
+                    await sleep(800);
+                    
+                    highlightLine(4); await sleep(800);
+                    linkedList.shift();
+                    renderListUI();
+                    highlightLine(5); await sleep(800);
+                    statusText.innerHTML = `Node ${val} deleted.`;
+                } else {
+                    highlightLine(7); await sleep(800);
+                    statusText.innerHTML = `Searching for node ${val}...`;
+                    
+                    const nodes = llContainer.querySelectorAll('.ll-node');
+                    const arrows = llContainer.querySelectorAll('.ll-arrow');
+                    
+                    let found = false;
+                    let targetIndex = -1;
+                    
+                    for (let i = 0; i < linkedList.length - 1; i++) {
+                        highlightLine(8); await sleep(600);
+                        nodes[i].classList.add('highlight');
+                        
+                        if (linkedList[i+1] == val) {
+                            found = true;
+                            targetIndex = i + 1;
+                            break;
+                        }
+                        
+                        highlightLine(9); await sleep(600);
+                        arrows[i].classList.add('highlight');
+                        await sleep(400);
+                        nodes[i].classList.remove('highlight');
+                        arrows[i].classList.remove('highlight');
+                    }
+                    
+                    highlightLine(11); await sleep(800);
+                    if (!found) {
+                        statusText.innerHTML = `Node ${val} not found in the list.`;
+                    } else {
+                        statusText.innerHTML = `Node ${val} found. Removing pointers...`;
+                        nodes[targetIndex - 1].classList.remove('highlight');
+                        
+                        highlightLine(12); await sleep(800);
+                        nodes[targetIndex].classList.add('delete-node');
+                        
+                        highlightLine(13); await sleep(800);
+                        arrows[targetIndex - 1].classList.add('highlight');
+                        
+                        highlightLine(14); await sleep(800);
+                        linkedList.splice(targetIndex, 1);
+                        renderListUI();
+                        statusText.innerHTML = `Node ${val} deleted.`;
+                    }
+                }
+                
+                highlightLine(-1);
+                disableControls(false);
+                nodeValueInput.value = '';
+            }
+
+            btnInsertHead.addEventListener('click', insertHead);
+            btnInsertTail.addEventListener('click', insertTail);
+            btnDelete.addEventListener('click', deleteNode);
+            btnClear.addEventListener('click', () => {
+                if(!isAnimating) {
+                    linkedList = [];
+                    renderListUI();
+                    statusText.innerHTML = "List cleared.";
+                    codeBlock.innerHTML = "Select an operation to see the code.";
+                }
+            });
+
+            // Initial render
+            renderListUI();
+        });
+    </script>
+</body>
+</html>

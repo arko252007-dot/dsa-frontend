@@ -1,0 +1,28 @@
+<header>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" id="sideMenu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling" style="cursor: pointer;">
+                <img src="Logo.png" alt="Logo" width="30" class="d-inline-block align-text-top">
+                DSA with C
+            </a>
+            <button class="btn btn-outline-secondary ms-auto" id="themeToggle" type="button" aria-label="Toggle theme">
+                <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">What's the plan for today??</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="list-group list-group-flush">
+        <a href="index.html" class="sideList"><li class="list-group-item">Home</li></a>
+        <a href="topics.html" class="sideList"><li class="list-group-item">Topics</li></a>
+        <a href="practiceQuestions.html" class="sideList"><li class="list-group-item">Practice Questions</li></a>
+        <a href="visualization.html" class="sideList"><li class="list-group-item">Visualization</li></a>
+    </ul>
+  </div>
+</div>

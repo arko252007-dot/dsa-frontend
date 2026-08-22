@@ -1,0 +1,244 @@
+:root {
+  /* Typography Stacks */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Type Scale (1.25 ratio) */
+  --font-xs: 0.75rem;       /* 12px */
+  --font-sm: 0.8125rem;     /* 13px */
+  --font-base: 0.875rem;    /* 14px */
+  --font-md: 0.9375rem;     /* 15px */
+  --font-lg: 1.0625rem;     /* 17px */
+  --font-xl: 1.25rem;       /* 20px */
+  --font-2xl: 1.5rem;       /* 24px */
+  --font-3xl: 1.875rem;     /* 30px */
+
+  /* Spacing Scale (4px/8px based) */
+  --space-1: 0.25rem;       /* 4px */
+  --space-2: 0.5rem;        /* 8px */
+  --space-3: 0.75rem;       /* 12px */
+  --space-4: 1rem;          /* 16px */
+  --space-5: 1.25rem;       /* 20px */
+  --space-6: 1.5rem;        /* 24px */
+  --space-8: 2rem;          /* 32px */
+  --space-10: 2.5rem;       /* 40px */
+  --space-12: 3rem;         /* 48px */
+
+  /* Crisp Border Radius (4px - 6px max) */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* Light Theme (Restrained Neutral Zinc Palette) */
+  --bg-canvas: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-subsurface: #f1f5f9;
+  --bg-hover: #e2e8f0;
+  --bg-active: #cbd5e1;
+
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-focus: #0f172a;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Primary Brand (Charcoal / Ink — Used sparingly for primary CTA and active nav) */
+  --primary: #0f172a;
+  --primary-hover: #1e293b;
+  --primary-subtle: rgba(15, 23, 42, 0.06);
+
+  --accent: #f59e0b;
+  --accent-subtle: rgba(245, 158, 11, 0.08);
+
+  /* Distinct Categorical Accent Palette (Coordinated, not all blue) */
+  --cat-array: #d97706;       /* Warm Amber */
+  --cat-array-bg: #fef3c7;
+  --cat-list: #059669;        /* Emerald Teal */
+  --cat-list-bg: #d1fae5;
+  --cat-tree: #dc2626;        /* Crimson Red */
+  --cat-tree-bg: #fee2e2;
+  --cat-graph: #7c3aed;       /* Violet Purple */
+  --cat-graph-bg: #ede9fe;
+  --cat-hash: #0891b2;        /* Cyan / Teal */
+  --cat-hash-bg: #cffafe;
+  --cat-recur: #ea580c;       /* Rust Orange */
+  --cat-recur-bg: #ffedd5;
+  --cat-math: #475569;        /* Slate Neutral */
+  --cat-math-bg: #f1f5f9;
+
+  /* Semantic Difficulty Badges (Considered Green/Amber/Red trio) */
+  --diff-easy: #059669;
+  --diff-easy-bg: #ecfdf5;
+  --diff-easy-border: #a7f3d0;
+
+  --diff-medium: #d97706;
+  --diff-medium-bg: #fffbeb;
+  --diff-medium-border: #fde68a;
+
+  --diff-hard: #dc2626;
+  --diff-hard-bg: #fef2f2;
+  --diff-hard-border: #fecaca;
+
+  --success: #16a34a;
+  --success-bg: #f0fdf4;
+  --success-border: #bbf7d0;
+
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --danger-border: #fecaca;
+
+  /* Button System Tokens (Light Mode) */
+  --btn-primary-bg: #0f172a;
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: #0f172a;
+  --btn-primary-hover: #1e293b;
+
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-text: #0f172a;
+  --btn-secondary-border: #cbd5e1;
+  --btn-secondary-hover: #f1f5f9;
+
+  --btn-danger-bg: #dc2626;
+  --btn-danger-text: #ffffff;
+  --btn-danger-border: #dc2626;
+  --btn-danger-hover: #b91c1c;
+
+  --btn-warning-bg: #d97706;
+  --btn-warning-text: #ffffff;
+  --btn-warning-border: #d97706;
+  --btn-warning-hover: #b45309;
+
+  --btn-success-bg: #059669;
+  --btn-success-text: #ffffff;
+  --btn-success-border: #059669;
+  --btn-success-hover: #047857;
+
+  --btn-outline-primary-bg: transparent;
+  --btn-outline-primary-text: #2563eb;
+  --btn-outline-primary-border: #2563eb;
+  --btn-outline-primary-hover: rgba(37, 99, 235, 0.08);
+
+  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-modal: 0 12px 28px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.06);
+
+  /* Backwards-compatibility aliases */
+  --bg-primary: var(--bg-canvas);
+  --bg-secondary: var(--bg-surface);
+  --bg-tertiary: var(--bg-subsurface);
+  --border-color: var(--border-subtle);
+}
+
+/* Dark Theme (Matte Charcoal & Neutral Slate Palette) */
+[data-theme='dark'],
+[data-bs-theme='dark'] {
+  --bg-canvas: #090a0f;
+  --bg-surface: #111318;
+  --bg-subsurface: #181b22;
+  --bg-hover: #212631;
+  --bg-active: #2a313f;
+
+  --border-subtle: #232834;
+  --border-strong: #333a4d;
+  --border-focus: #3b82f6;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #090a0f;
+
+  /* Primary Brand in Dark Mode */
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+  --primary-subtle: rgba(59, 130, 246, 0.12);
+
+  /* Distinct Categorical Accent Palette in Dark Mode */
+  --cat-array: #fbbf24;
+  --cat-array-bg: rgba(251, 191, 36, 0.12);
+  --cat-list: #34d399;
+  --cat-list-bg: rgba(52, 211, 153, 0.12);
+  --cat-tree: #f87171;
+  --cat-tree-bg: rgba(248, 113, 113, 0.12);
+  --cat-graph: #a78bfa;
+  --cat-graph-bg: rgba(167, 139, 250, 0.12);
+  --cat-hash: #22d3ee;
+  --cat-hash-bg: rgba(34, 211, 238, 0.12);
+  --cat-recur: #fb923c;
+  --cat-recur-bg: rgba(251, 146, 60, 0.12);
+  --cat-math: #94a3b8;
+  --cat-math-bg: rgba(148, 163, 184, 0.12);
+
+  /* Semantic Difficulty Badges (Calibrated Dark Saturation) */
+  --diff-easy: #34d399;
+  --diff-easy-bg: rgba(52, 211, 153, 0.12);
+  --diff-easy-border: rgba(52, 211, 153, 0.28);
+
+  --diff-medium: #fbbf24;
+  --diff-medium-bg: rgba(245, 158, 11, 0.12);
+  --diff-medium-border: rgba(245, 158, 11, 0.28);
+
+  --diff-hard: #f87171;
+  --diff-hard-bg: rgba(248, 113, 113, 0.12);
+  --diff-hard-border: rgba(248, 113, 113, 0.28);
+
+  --success: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.12);
+  --success-border: rgba(34, 197, 94, 0.28);
+
+  --danger: #f87171;
+  --danger-bg: rgba(248, 113, 113, 0.12);
+  --danger-border: rgba(248, 113, 113, 0.28);
+
+  --code-bg: #090a0f;
+  --code-text: #e2e8f0;
+  --code-border: #232834;
+  --code-active-line: #181b22;
+  --code-highlight: #38bdf8;
+
+  /* Button System Tokens (Dark Mode) */
+  --btn-primary-bg: #2563eb;
+  --btn-primary-text: #ffffff;
+  --btn-primary-border: #3b82f6;
+  --btn-primary-hover: #1d4ed8;
+
+  --btn-secondary-bg: #181b22;
+  --btn-secondary-text: #f8fafc;
+  --btn-secondary-border: #333a4d;
+  --btn-secondary-hover: #212631;
+
+  --btn-danger-bg: #dc2626;
+  --btn-danger-text: #ffffff;
+  --btn-danger-border: #ef4444;
+  --btn-danger-hover: #b91c1c;
+
+  --btn-warning-bg: #d97706;
+  --btn-warning-text: #ffffff;
+  --btn-warning-border: #f59e0b;
+  --btn-warning-hover: #b45309;
+
+  --btn-success-bg: #059669;
+  --btn-success-text: #ffffff;
+  --btn-success-border: #10b981;
+  --btn-success-hover: #047857;
+
+  --btn-outline-primary-bg: transparent;
+  --btn-outline-primary-text: #60a5fa;
+  --btn-outline-primary-border: #3b82f6;
+  --btn-outline-primary-hover: rgba(59, 130, 246, 0.15);
+
+  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-modal: 0 16px 36px rgba(0, 0, 0, 0.65), 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  /* Backwards-compatibility aliases */
+  --bg-primary: var(--bg-canvas);
+  --bg-secondary: var(--bg-surface);
+  --bg-tertiary: var(--bg-subsurface);
+  --border-color: var(--border-subtle);
+}
+
+
