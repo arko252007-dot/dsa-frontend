@@ -15,7 +15,7 @@ export const sortingVisualizer = {
             </div>
             <h2 class="visualizer-title mb-0">Sorting Algorithms</h2>
           </div>
-          <a href="#/visualizations" class="btn btn-secondary btn-sm">
+          <a href="/visualizations" class="btn btn-secondary btn-sm">
             <i class="bi bi-arrow-left"></i> Back to Hub
           </a>
         </div>

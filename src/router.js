@@ -1,4 +1,4 @@
-// Client-Side Hash Router with Authentication Route Guard
+// Client-Side History Router with Authentication Route Guard
 import { HomePage } from './pages/HomePage.js';
 import { PracticePage } from './pages/PracticePage.js';
 import { VisualizationsHub } from './pages/VisualizationsHub.js';
@@ -17,9 +17,9 @@ const routes = [
   { path: '/visualizer/:id', view: VisualizerPage, isPublic: false },
 ];
 
-function parseHashRoute() {
-  const hash = window.location.hash.slice(1) || '/';
-  const [path, queryString] = hash.split('?');
+function parseRoute() {
+  const path = window.location.pathname || '/';
+  const queryString = window.location.search ? window.location.search.slice(1) : '';
   return { path: path.startsWith('/') ? path : `/${path}`, queryString };
 }
 
@@ -54,7 +54,11 @@ function matchRoute(currentPath) {
 
 export const Router = {
   navigate(path) {
-    window.location.hash = path.startsWith('/') ? `#${path}` : `#/${path}`;
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    if (window.location.pathname !== cleanPath) {
+      window.history.pushState({}, '', cleanPath);
+    }
+    this.handleRouteChange();
   },
 
   handleRouteChange() {
@@ -62,7 +66,7 @@ export const Router = {
       currentRouteHandler.cleanup();
     }
 
-    const { path } = parseHashRoute();
+    const { path } = parseRoute();
     const { route, params } = matchRoute(path);
 
     // Route Guard: If not logged in and route is private, redirect to Home
@@ -97,11 +101,45 @@ export const Router = {
   },
 
   init() {
-    window.addEventListener('hashchange', () => this.handleRouteChange());
+    // If a user navigates via an old hash link (e.g. #/practice), smoothly migrate to path
+    if (window.location.hash && window.location.hash.startsWith('#/')) {
+      const cleanPath = window.location.hash.slice(1);
+      window.history.replaceState({}, '', cleanPath);
+    }
+
+    window.addEventListener('popstate', () => this.handleRouteChange());
     window.addEventListener('authChanged', () => {
       Navbar.renderNavState();
       this.handleRouteChange();
     });
+
+    // Intercept clicks on local links for single-page app transitions
+    document.addEventListener('click', (e) => {
+      const anchor = e.target.closest('a');
+      if (!anchor) return;
+
+      const href = anchor.getAttribute('href');
+      if (!href) return;
+
+      if (
+        anchor.target === '_blank' ||
+        anchor.hasAttribute('download') ||
+        href.startsWith('http://') ||
+        href.startsWith('https://') ||
+        href.startsWith('mailto:') ||
+        href.startsWith('tel:') ||
+        href.startsWith('javascript:')
+      ) {
+        return;
+      }
+
+      if (href.startsWith('#/') || href.startsWith('/')) {
+        e.preventDefault();
+        const cleanPath = href.startsWith('#/') ? href.slice(1) : href;
+        this.navigate(cleanPath);
+      }
+    });
+
     this.handleRouteChange();
   }
 };

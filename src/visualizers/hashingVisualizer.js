@@ -12,7 +12,7 @@ export const hashingVisualizer = {
           <h2 class="visualizer-title">
             <i class="bi bi-grid-3x3 text-warning"></i> Hashing & Linear Probing
           </h2>
-          <a href="#/visualizations" class="btn btn-secondary btn-sm">
+          <a href="/visualizations" class="btn btn-secondary btn-sm">
             <i class="bi bi-arrow-left"></i> Back to Hub
           </a>
         </div>

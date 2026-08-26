@@ -83,7 +83,7 @@ export const VisualizationsHub = {
                     ${v.desc}
                   </p>
 
-                  <a href="#/visualizer/${v.id}" class="btn-card-launch">
+                  <a href="/visualizer/${v.id}" class="btn-card-launch">
                     <span>Open Visualizer</span>
                     <i class="bi bi-arrow-right"></i>
                   </a>

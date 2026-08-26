@@ -27,7 +27,7 @@ export const VisualizerPage = {
         <div class="text-center py-5">
           <h2 class="text-danger mb-3">Visualizer Not Found</h2>
           <p class="text-secondary mb-4">The requested visualizer algorithm does not exist.</p>
-          <a href="#/visualizations" class="btn btn-primary">Back to Visualizations</a>
+          <a href="/visualizations" class="btn btn-primary">Back to Visualizations</a>
         </div>
       `;
     }

@@ -163,7 +163,7 @@ export const HomePage = {
                     <i class="bi bi-check2-square text-success"></i>
                     <span class="fw-semibold" style="font-size: var(--font-sm);">Solved Archive</span>
                   </div>
-                  <a href="#/practice" class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: var(--font-xs);">
+                  <a href="/practice" class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: var(--font-xs);">
                     Practice Sheet &rarr;
                   </a>
                 </div>
@@ -208,7 +208,7 @@ export const HomePage = {
                         </div>
                       </div>
                     </div>
-                    <a href="#/visualizer/hanoi" class="btn-lab-launch">
+                    <a href="/visualizer/hanoi" class="btn-lab-launch">
                       <span>Launch</span>
                       <i class="bi bi-arrow-right"></i>
                     </a>
@@ -229,7 +229,7 @@ export const HomePage = {
                         </div>
                       </div>
                     </div>
-                    <a href="#/visualizer/tree" class="btn-lab-launch">
+                    <a href="/visualizer/tree" class="btn-lab-launch">
                       <span>Launch</span>
                       <i class="bi bi-arrow-right"></i>
                     </a>
@@ -250,7 +250,7 @@ export const HomePage = {
                         </div>
                       </div>
                     </div>
-                    <a href="#/visualizer/linked-list" class="btn-lab-launch">
+                    <a href="/visualizer/linked-list" class="btn-lab-launch">
                       <span>Launch</span>
                       <i class="bi bi-arrow-right"></i>
                     </a>
@@ -271,7 +271,7 @@ export const HomePage = {
                         </div>
                       </div>
                     </div>
-                    <a href="#/visualizer/graph" class="btn-lab-launch">
+                    <a href="/visualizer/graph" class="btn-lab-launch">
                       <span>Launch</span>
                       <i class="bi bi-arrow-right"></i>
                     </a>
@@ -292,7 +292,7 @@ export const HomePage = {
                         </div>
                       </div>
                     </div>
-                    <a href="#/visualizer/hashing" class="btn-lab-launch">
+                    <a href="/visualizer/hashing" class="btn-lab-launch">
                       <span>Launch</span>
                       <i class="bi bi-arrow-right"></i>
                     </a>
@@ -313,7 +313,7 @@ export const HomePage = {
                         </div>
                       </div>
                     </div>
-                    <a href="#/visualizer/sorting" class="btn-lab-launch">
+                    <a href="/visualizer/sorting" class="btn-lab-launch">
                       <span>Launch</span>
                       <i class="bi bi-arrow-right"></i>
                     </a>
@@ -441,7 +441,7 @@ export const HomePage = {
             <p class="text-muted small mb-3" style="max-width: 360px; margin: 0 auto; font-size: var(--font-xs);">
               Problems marked as solved on the Practice Sheet will appear in your archive here.
             </p>
-            <a href="#/practice" class="btn btn-sm btn-primary">
+            <a href="/practice" class="btn btn-sm btn-primary">
               Browse Practice Sheet &rarr;
             </a>
           </div>

@@ -2,6 +2,7 @@
 import { ThemeManager } from '../services/theme.js';
 import { StorageManager } from '../services/storage.js';
 import { Toast } from './Toast.js';
+import { Router } from '../router.js';
 
 // 20 Curated Funny Full-Forms for "DSA with C"
 const DSA_ACRONYMS = [
@@ -53,7 +54,7 @@ export const Navbar = {
                 <i class="bi bi-list fs-6"></i>
               </button>
 
-              <a href="#/" class="nav-brand text-truncate" id="navBrandLink" title="${current.desc}">
+              <a href="/" class="nav-brand text-truncate" id="navBrandLink" title="${current.desc}">
                 <img src="/logo.png" alt="DSA Logo" onerror="this.onerror=null; this.src='/Logo.png';">
                 <span class="dsa-title-anim fw-semibold text-truncate" id="navBrandText">${current.title}</span>
               </a>
@@ -62,15 +63,15 @@ export const Navbar = {
             <!-- 2. CENTER SECTION: Exact Center Segmented Nav Tabs -->
             <div class="navbar-center-col d-none d-md-flex">
               <nav class="nav-segmented-tabs ${isAuth ? '' : 'd-none'}" id="desktopNavLinks">
-                <a href="#/" class="nav-tab-item" data-route="/">
+                <a href="/" class="nav-tab-item" data-route="/">
                   <i class="bi bi-grid-1x2"></i>
                   <span>Explore</span>
                 </a>
-                <a href="#/practice" class="nav-tab-item" data-route="/practice">
+                <a href="/practice" class="nav-tab-item" data-route="/practice">
                   <i class="bi bi-terminal"></i>
                   <span>Problems</span>
                 </a>
-                <a href="#/visualizations" class="nav-tab-item" data-route="/visualizations">
+                <a href="/visualizations" class="nav-tab-item" data-route="/visualizations">
                   <i class="bi bi-play-circle"></i>
                   <span>Visualizers</span>
                 </a>
@@ -128,13 +129,13 @@ export const Navbar = {
           </div>
 
           <div class="d-flex flex-column gap-1">
-            <a href="#/" class="mobile-nav-link" data-route="/">
+            <a href="/" class="mobile-nav-link" data-route="/">
               <i class="bi bi-house-door fs-5"></i> Home
             </a>
-            <a href="#/practice" class="mobile-nav-link" data-route="/practice">
+            <a href="/practice" class="mobile-nav-link" data-route="/practice">
               <i class="bi bi-code-square fs-5"></i> Practice Questions
             </a>
-            <a href="#/visualizations" class="mobile-nav-link" data-route="/visualizations">
+            <a href="/visualizations" class="mobile-nav-link" data-route="/visualizations">
               <i class="bi bi-play-circle fs-5"></i> Algorithm Visualizers
             </a>
           </div>
@@ -150,19 +151,19 @@ export const Navbar = {
   },
 
   init() {
-    const navLogoutBtn = document.getElementById('navLogoutBtn');
-    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const themeToggleBtnMobile = document.getElementById('themeToggleBtnMobile');
     const themeToggleBtnGuest = document.getElementById('themeToggleBtnGuest');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeIconMobile = document.getElementById('themeIconMobile');
-    const themeIconGuest = document.getElementById('themeIconGuest');
-    const navBrandText = document.getElementById('navBrandText');
-    const navBrandLink = document.getElementById('navBrandLink');
+    const navLogoutBtn = document.getElementById('navLogoutBtn');
+    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
     const mobileMenuToggleBtn = document.getElementById('mobileMenuToggleBtn');
     const mobileDrawerCloseBtn = document.getElementById('mobileDrawerCloseBtn');
     const mobileDrawerBackdrop = document.getElementById('mobileDrawerBackdrop');
+    const navBrandText = document.getElementById('navBrandText');
+    const navBrandLink = document.getElementById('navBrandLink');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeIconMobile = document.getElementById('themeIconMobile');
+    const themeIconGuest = document.getElementById('themeIconGuest');
 
     // Theme toggler display update
     const updateThemeDisplay = (theme) => {
@@ -201,7 +202,7 @@ export const Navbar = {
       StorageManager.logout();
       if (mobileDrawerBackdrop) mobileDrawerBackdrop.classList.remove('open');
       Toast.show('Logged out successfully.', 'info');
-      window.location.hash = '#/';
+      Router.navigate('/');
     };
 
     if (navLogoutBtn) navLogoutBtn.addEventListener('click', handleLogout);

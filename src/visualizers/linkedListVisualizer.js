@@ -15,7 +15,7 @@ export const linkedListVisualizer = {
             </div>
             <h2 class="visualizer-title mb-0">Linked List Engine</h2>
           </div>
-          <a href="#/visualizations" class="btn btn-secondary btn-sm">
+          <a href="/visualizations" class="btn btn-secondary btn-sm">
             <i class="bi bi-arrow-left"></i> Back to Hub
           </a>
         </div>

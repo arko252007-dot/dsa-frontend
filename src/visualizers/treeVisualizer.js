@@ -12,7 +12,7 @@ export const treeVisualizer = {
           <h2 class="visualizer-title">
             <i class="bi bi-diagram-2 text-danger"></i> Binary Search Tree (BST)
           </h2>
-          <a href="#/visualizations" class="btn btn-secondary btn-sm">
+          <a href="/visualizations" class="btn btn-secondary btn-sm">
             <i class="bi bi-arrow-left"></i> Back to Hub
           </a>
         </div>

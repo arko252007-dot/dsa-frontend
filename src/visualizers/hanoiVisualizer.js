@@ -12,7 +12,7 @@ export const hanoiVisualizer = {
           <h2 class="visualizer-title">
             <i class="bi bi-stack text-info"></i> Tower of Hanoi (Recursion)
           </h2>
-          <a href="#/visualizations" class="btn btn-secondary btn-sm">
+          <a href="/visualizations" class="btn btn-secondary btn-sm">
             <i class="bi bi-arrow-left"></i> Back to Hub
           </a>
         </div>
