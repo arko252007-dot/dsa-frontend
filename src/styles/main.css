@@ -807,6 +807,40 @@ code, pre, kbd, samp {
   border-color: var(--text-primary);
 }
 
+/* ─── Solved Archive Scrollable Container (Explore Dashboard) ──────────────── */
+.solved-archive-scroll {
+  max-height: 480px;
+  overflow-y: auto;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.solved-archive-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.solved-archive-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.solved-archive-scroll::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+
+.solved-archive-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+.solved-archive-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  box-shadow: 0 1px 0 var(--border-subtle);
+}
+
 /* ─── Topic Segmented Control (Problems Page) ──────────────────────────────── */
 .topic-segmented-control {
   display: flex;

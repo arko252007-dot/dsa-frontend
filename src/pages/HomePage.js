@@ -158,7 +158,7 @@ export const HomePage = {
             <div class="col-lg-7 col-xl-7">
               <div class="card shadow-sm h-100 overflow-hidden d-flex flex-column">
                 
-                <div class="card-header-clean py-2 px-3">
+                <div class="card-header-clean py-2 px-3 flex-shrink-0">
                   <div class="d-flex align-items-center gap-2">
                     <i class="bi bi-check2-square text-success"></i>
                     <span class="fw-semibold" style="font-size: var(--font-sm);">Solved Archive</span>
@@ -169,7 +169,7 @@ export const HomePage = {
                 </div>
 
                 <!-- Solved Problems List Container -->
-                <div class="flex-grow-1" id="solvedProblemsContainer">
+                <div class="flex-grow-1 solved-archive-scroll" id="solvedProblemsContainer">
                   <div class="text-center py-4">
                     <div class="spinner-border spinner-border-sm text-muted mb-2" role="status"></div>
                     <p class="text-muted small mb-0 font-mono">Loading archive...</p>
@@ -450,53 +450,50 @@ export const HomePage = {
       }
 
       solvedProblemsContainer.innerHTML = `
-        <div class="table-responsive">
-          <table class="table-clean mb-0">
-            <thead>
-              <tr>
-                <th style="width: 45px;" class="text-center">Done</th>
-                <th>Problem Title</th>
-                <th style="width: 140px;">Category</th>
-                <th style="width: 90px;">Difficulty</th>
-                <th style="width: 90px;" class="text-center">LeetCode</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${solvedProblems.map(prob => {
-                const id = prob.problemId || prob.id || prob._id;
-                const diffClass = (prob.difficulty || 'easy') === 'easy' ? 'badge-pill-easy' : (prob.difficulty === 'medium' ? 'badge-pill-medium' : 'badge-pill-hard');
+        <table class="table-clean mb-0">
+          <thead>
+            <tr>
+              <th style="width: 45px;" class="text-center">Done</th>
+              <th>Problem Title</th>
+              <th style="width: 140px;">Category</th>
+              <th style="width: 90px;">Difficulty</th>
+              <th style="width: 90px;" class="text-center">LeetCode</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${solvedProblems.map(prob => {
+              const diffClass = (prob.difficulty || 'easy') === 'easy' ? 'badge-pill-easy' : (prob.difficulty === 'medium' ? 'badge-pill-medium' : 'badge-pill-hard');
 
-                return `
-                  <tr>
-                    <td class="text-center">
-                      <i class="bi bi-check-circle-fill text-success fs-6"></i>
-                    </td>
-                    <td>
-                      <span class="fw-semibold">${prob.title}</span>
-                    </td>
-                    <td>
-                      <span class="text-muted small text-truncate d-inline-block" style="max-width: 130px;">
-                        ${prob.category}
-                      </span>
-                    </td>
-                    <td>
-                      <span class="${diffClass}">
-                        ${prob.difficulty}
-                      </span>
-                    </td>
-                    <td class="text-center">
-                      <a href="${prob.practiceUrl || 'https://leetcode.com'}" target="_blank" rel="noopener noreferrer"
-                         class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.75rem;"
-                         title="Practice on LeetCode">
-                        <i class="bi bi-box-arrow-up-right"></i>
-                      </a>
-                    </td>
-                  </tr>
-                `;
-              }).join('')}
-            </tbody>
-          </table>
-        </div>
+              return `
+                <tr>
+                  <td class="text-center">
+                    <i class="bi bi-check-circle-fill text-success fs-6"></i>
+                  </td>
+                  <td>
+                    <span class="fw-semibold">${prob.title}</span>
+                  </td>
+                  <td>
+                    <span class="text-muted small text-truncate d-inline-block" style="max-width: 130px;">
+                      ${prob.category}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="${diffClass}">
+                      ${prob.difficulty}
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <a href="${prob.practiceUrl || 'https://leetcode.com'}" target="_blank" rel="noopener noreferrer"
+                       class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.75rem;"
+                       title="Practice on LeetCode">
+                      <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
       `;
     };
 
