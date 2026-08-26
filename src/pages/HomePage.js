@@ -431,7 +431,7 @@ export const HomePage = {
     const renderSolvedList = () => {
       if (!solvedProblemsContainer) return;
 
-      const solvedProblems = this._problems.filter(p => StorageManager.isProblemSolved(p.problemId || p.id));
+      const solvedProblems = this._problems.filter(p => StorageManager.isProblemSolved(p.problemId || p.id || p._id));
 
       if (solvedProblems.length === 0) {
         solvedProblemsContainer.innerHTML = `
@@ -463,7 +463,7 @@ export const HomePage = {
             </thead>
             <tbody>
               ${solvedProblems.map(prob => {
-                const id = prob.problemId || prob.id;
+                const id = prob.problemId || prob.id || prob._id;
                 const diffClass = (prob.difficulty || 'easy') === 'easy' ? 'badge-pill-easy' : (prob.difficulty === 'medium' ? 'badge-pill-medium' : 'badge-pill-hard');
 
                 return `

@@ -45,27 +45,35 @@ export const StorageManager = {
   },
 
   isProblemSolved(problemId) {
+    if (!problemId) return false;
     const solved = this.getSolvedProblems();
-    return Boolean(solved[problemId]);
+    if (typeof problemId === 'string') {
+      return Boolean(solved[problemId]);
+    }
+    const key = problemId.problemId || problemId.id || problemId._id;
+    return Boolean(key && solved[key]);
   },
 
   async toggleProblemSolved(problemId, isSolved) {
+    const key = typeof problemId === 'object' ? (problemId.problemId || problemId.id || problemId._id) : problemId;
+    if (!key) return;
+
     const solved = this.getSolvedProblems();
     const username = this.getUserName();
 
     if (isSolved) {
-      solved[problemId] = {
+      solved[key] = {
         solvedAt: new Date().toISOString(),
       };
     } else {
-      delete solved[problemId];
+      delete solved[key];
     }
     localStorage.setItem(STORAGE_KEYS.SOLVED_PROBLEMS, JSON.stringify(solved));
 
     // Sync directly to MongoDB backend if user is logged in
     if (username) {
       try {
-        await Api.toggleSolve(username, problemId, isSolved);
+        await Api.toggleSolve(username, key, isSolved);
       } catch (err) {
         console.error('Failed to sync solve state to DB:', err);
       }
@@ -79,7 +87,7 @@ export const StorageManager = {
     return Object.keys(solved).length;
   },
 
-  getStatsByDifficulty(problemList) {
+  getStatsByDifficulty(problemList = []) {
     const solved = this.getSolvedProblems();
     const stats = {
       total: problemList.length,
@@ -91,10 +99,10 @@ export const StorageManager = {
 
     problemList.forEach(prob => {
       const diff = (prob.difficulty || 'easy').toLowerCase();
-      const key  = prob.problemId || prob.id;
+      const key  = prob.problemId || prob.id || prob._id;
       if (stats[diff]) {
         stats[diff].total++;
-        if (solved[key]) {
+        if (key && solved[key]) {
           stats[diff].solved++;
           stats.solvedTotal++;
         }

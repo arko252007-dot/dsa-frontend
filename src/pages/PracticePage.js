@@ -117,7 +117,7 @@ function buildProblems(problems) {
   });
 
   return Array.from(categoryMap.entries()).map(([category, catProblems]) => {
-    const catSolved = catProblems.filter(p => StorageManager.isProblemSolved(p.problemId || p.id)).length;
+    const catSolved = catProblems.filter(p => StorageManager.isProblemSolved(p.problemId || p.id || p._id)).length;
     const catConfig = getCategoryConfig(category);
 
     return `
@@ -137,7 +137,7 @@ function buildProblems(problems) {
           </div>
           
           <div class="d-flex align-items-center gap-2 flex-shrink-0">
-            <span class="stat-chip font-mono">
+            <span class="stat-chip font-mono category-solved-chip">
               ${catSolved} / ${catProblems.length} solved
             </span>
             <button type="button"
@@ -165,7 +165,7 @@ function buildProblems(problems) {
             </thead>
             <tbody>
               ${catProblems.map(prob => {
-                const id = prob.problemId || prob.id;
+                const id = prob.problemId || prob.id || prob._id;
                 const solved = StorageManager.isProblemSolved(id);
                 const diffClass = prob.difficulty === 'easy' ? 'badge-pill-easy' : prob.difficulty === 'medium' ? 'badge-pill-medium' : 'badge-pill-hard';
                 return `
@@ -262,6 +262,19 @@ export const PracticePage = {
     // ── Fetch problems from DB ────────────────────────────────────────────────
     try {
       this._problems = await Api.getProblems();
+
+      // Refresh solved states from DB if user is logged in
+      const currentUsername = StorageManager.getUserName();
+      if (currentUsername) {
+        try {
+          const userData = await Api.getUser(currentUsername);
+          if (userData && userData.solvedProblems) {
+            StorageManager.setSolvedProblems(userData.solvedProblems);
+          }
+        } catch (uErr) {
+          console.warn('Could not refresh user stats from DB:', uErr);
+        }
+      }
     } catch (err) {
       container.innerHTML = `
         <div class="card border-0 text-center py-5 shadow-sm">
@@ -439,6 +452,18 @@ export const PracticePage = {
 
     const practiceHeroPercent = document.getElementById('practiceHeroPercent');
 
+    const updateCategoryCounts = () => {
+      document.querySelectorAll('.category-card').forEach(card => {
+        const cat = card.getAttribute('data-category');
+        const catProbs = problems.filter(p => (p.category || 'General') === cat);
+        const catSolved = catProbs.filter(p => StorageManager.isProblemSolved(p.problemId || p.id || p._id)).length;
+        const chip = card.querySelector('.category-solved-chip') || card.querySelector('.stat-chip');
+        if (chip) {
+          chip.innerText = `${catSolved} / ${catProbs.length} solved`;
+        }
+      });
+    };
+
     const updateMetrics = () => {
       const stats = StorageManager.getStatsByDifficulty(problems);
       const percent = stats.total > 0 ? Math.round((stats.solvedTotal / stats.total) * 100) : 0;
@@ -456,6 +481,15 @@ export const PracticePage = {
       if (metricSegEasy) metricSegEasy.style.width = `${easyPct}%`;
       if (metricSegMed)  metricSegMed.style.width = `${medPct}%`;
       if (metricSegHard) metricSegHard.style.width = `${hardPct}%`;
+
+      // Update each category card header count dynamically
+      updateCategoryCounts();
+
+      // Update navbar solved pill if rendered
+      const navPill = document.querySelector('.user-stats-pill');
+      if (navPill) {
+        navPill.innerText = `${StorageManager.getTotalSolvedCount()} solved`;
+      }
     };
 
     const filterRows = () => {
