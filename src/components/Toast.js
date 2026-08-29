@@ -1,4 +1,3 @@
-// Non-blocking Toast Notification Component
 let toastContainer = null;
 
 function ensureContainer() {

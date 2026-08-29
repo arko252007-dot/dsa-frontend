@@ -1,4 +1,3 @@
-// Linked List Visualizer Engine (Supports Singly, Doubly, and Circular Linked Lists with 0-based indexing)
 export const linkedListVisualizer = {
   id: 'linked-list',
   title: 'Linked List Operations',

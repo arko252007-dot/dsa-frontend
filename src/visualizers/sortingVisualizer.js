@@ -1,4 +1,3 @@
-// Sorting Algorithm Visualizer Engine (Bubble, Selection, Insertion, Merge, Quick Sort)
 export const sortingVisualizer = {
   id: 'sorting',
   title: 'Sorting Algorithms',

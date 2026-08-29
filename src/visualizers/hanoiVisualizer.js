@@ -1,4 +1,3 @@
-// Tower of Hanoi Recursion Visualizer Engine
 export const hanoiVisualizer = {
   id: 'hanoi',
   title: 'Tower of Hanoi (Recursion)',

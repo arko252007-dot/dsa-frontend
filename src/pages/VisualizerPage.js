@@ -1,4 +1,3 @@
-// Visualizer Host Page View
 import { sortingVisualizer } from '../visualizers/sortingVisualizer.js';
 import { linkedListVisualizer } from '../visualizers/linkedListVisualizer.js';
 import { hashingVisualizer } from '../visualizers/hashingVisualizer.js';

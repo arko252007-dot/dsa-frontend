@@ -1,8 +1,9 @@
-// Client-Side History Router with Authentication Route Guard
 import { HomePage } from './pages/HomePage.js';
 import { PracticePage } from './pages/PracticePage.js';
 import { VisualizationsHub } from './pages/VisualizationsHub.js';
 import { VisualizerPage } from './pages/VisualizerPage.js';
+import { TermsPage } from './pages/TermsPage.js';
+import { PrivacyPage } from './pages/PrivacyPage.js';
 import { Navbar } from './components/Navbar.js';
 import { RotatePrompt } from './components/RotatePrompt.js';
 import { StorageManager } from './services/storage.js';
@@ -12,6 +13,10 @@ let currentRouteHandler = null;
 
 const routes = [
   { path: '/', view: HomePage, isPublic: true },
+  { path: '/terms', view: TermsPage, isPublic: true },
+  { path: '/terms.html', view: TermsPage, isPublic: true },
+  { path: '/privacy', view: PrivacyPage, isPublic: true },
+  { path: '/privacy.html', view: PrivacyPage, isPublic: true },
   { path: '/practice', view: PracticePage, isPublic: false },
   { path: '/visualizations', view: VisualizationsHub, isPublic: false },
   { path: '/visualizer/:id', view: VisualizerPage, isPublic: false },
@@ -48,7 +53,6 @@ function matchRoute(currentPath) {
     }
   }
 
-  // Fallback to Home
   return { route: routes[0], params: {} };
 }
 
@@ -69,7 +73,6 @@ export const Router = {
     const { path } = parseRoute();
     const { route, params } = matchRoute(path);
 
-    // Route Guard: If not logged in and route is private, redirect to Home
     const isLoggedIn = StorageManager.isLoggedIn();
     if (!route.isPublic && !isLoggedIn) {
       Toast.show('Please log in with your Student ID & Password to access this page.', 'warning');
@@ -81,27 +84,18 @@ export const Router = {
     if (!mainContent) return;
 
     currentRouteHandler = route.view;
-
-    // Render View
     mainContent.innerHTML = route.view.render(params);
 
-    // Initialize View JS
     if (typeof route.view.init === 'function') {
       route.view.init(params);
     }
 
-    // Update active navbar state
     Navbar.updateActiveRoute(path);
-
-    // Prompt device rotation if entering visualization pages on mobile portrait
     RotatePrompt.checkAndPrompt(path);
-
-    // Scroll to top
     window.scrollTo({ top: 0, behavior: 'instant' });
   },
 
   init() {
-    // If a user navigates via an old hash link (e.g. #/practice), smoothly migrate to path
     if (window.location.hash && window.location.hash.startsWith('#/')) {
       const cleanPath = window.location.hash.slice(1);
       window.history.replaceState({}, '', cleanPath);
@@ -113,7 +107,6 @@ export const Router = {
       this.handleRouteChange();
     });
 
-    // Intercept clicks on local links for single-page app transitions
     document.addEventListener('click', (e) => {
       const anchor = e.target.closest('a');
       if (!anchor) return;

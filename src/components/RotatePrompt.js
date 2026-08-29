@@ -1,4 +1,3 @@
-// Rotate Device Prompt Component for Mobile Portrait Users Entering Visualizer Pages
 export const RotatePrompt = {
   _isPromptOpen: false,
   _dismissedInSession: false,
@@ -52,7 +51,6 @@ export const RotatePrompt = {
       });
     }
 
-    // Auto close if user physically rotates device to landscape
     const handleOrientation = () => {
       if (window.innerWidth > window.innerHeight && this._isPromptOpen) {
         closePrompt();

@@ -1,4 +1,3 @@
-// Visualizations Hub Page View (LeetCode Explore Cards Style)
 export const VisualizationsHub = {
   render() {
     const visualizers = [
@@ -100,4 +99,3 @@ export const VisualizationsHub = {
 
   init() {}
 };
-

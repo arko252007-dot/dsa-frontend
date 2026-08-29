@@ -1,4 +1,3 @@
-// Binary Search Tree & Traversals Visualizer Engine
 export const treeVisualizer = {
   id: 'tree',
   title: 'Binary Search Tree & Traversals',

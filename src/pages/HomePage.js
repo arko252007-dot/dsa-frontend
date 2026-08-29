@@ -1,11 +1,10 @@
-// Home Page View — Developer Dashboard & Authentication
 import { Api } from '../services/api.js';
 import { StorageManager } from '../services/storage.js';
 import { Toast } from '../components/Toast.js';
 
 export const HomePage = {
   _problems: [],
-  _authMode: 'login', // 'login' | 'signup'
+  _authMode: 'login',
 
   render() {
     const username = StorageManager.getUserName();
@@ -15,14 +14,11 @@ export const HomePage = {
     return `
       <div class="container-fluid px-3 px-md-4 px-lg-5 py-2 py-md-3">
         
-        <!-- ── STATE 1: Clean Developer Authentication ────────────────────────── -->
         <div id="homeAuthBlocker" class="${isAuth ? 'd-none' : ''}">
           <div class="row justify-content-center py-4 py-md-5">
             <div class="col-12 col-sm-10 col-md-6 col-lg-5 col-xl-4">
               
               <div class="card shadow-sm overflow-hidden">
-                
-                <!-- Auth Mode Switcher Tabs -->
                 <div class="d-flex border-bottom bg-subsurface p-1 gap-1">
                   <button type="button"
                           class="btn flex-fill py-2 fw-medium ${this._authMode === 'login' ? 'btn-primary' : 'btn-outline-secondary border-0 bg-transparent'}"
@@ -46,12 +42,9 @@ export const HomePage = {
                     </p>
                   </div>
 
-                  <!-- Direct Inline Error/Status Banner -->
                   <div id="authAlertBanner" class="alert alert-danger d-none py-2 px-3 small mb-3" role="alert"></div>
 
                   <form id="studentAuthForm">
-                    
-                    <!-- Username Input -->
                     <div class="mb-3">
                       <label for="studentIdInput" class="form-label small fw-medium text-muted">Username</label>
                       <div class="input-group">
@@ -67,7 +60,6 @@ export const HomePage = {
                       </div>
                     </div>
 
-                    <!-- Password Input (Min 8 chars) -->
                     <div class="mb-3">
                       <label for="studentPasswordInput" class="form-label small fw-medium text-muted">Password</label>
                       <div class="input-group">
@@ -101,15 +93,11 @@ export const HomePage = {
           </div>
         </div>
 
-        <!-- ── STATE 2: Logged-in Developer Dashboard ─────────────────────────── -->
         <div id="homeDashboard" class="${isAuth ? '' : 'd-none'}">
-          
-          <!-- Unified Hero Progress & Stats Overview -->
           <div class="card shadow-sm mb-4">
             <div class="card-body p-3 p-md-4">
               <div class="row align-items-center justify-content-between g-3">
                 
-                <!-- Hero % Stat & User Meta -->
                 <div class="col-lg-5">
                   <div class="d-flex align-items-center gap-3">
                     <div class="d-flex flex-column">
@@ -126,7 +114,6 @@ export const HomePage = {
                   </div>
                 </div>
 
-                <!-- Difficulty Metrics Grid & Progress Bar -->
                 <div class="col-lg-7">
                   <div class="d-flex align-items-center justify-content-lg-end gap-2 flex-wrap mb-2" id="portalMetricsPills">
                     <span class="badge-pill-easy">
@@ -151,10 +138,7 @@ export const HomePage = {
             </div>
           </div>
 
-          <!-- 2-Column Core Layout -->
           <div class="row g-3 g-md-4">
-            
-            <!-- LEFT COLUMN: Solved Problems Archive -->
             <div class="col-lg-7 col-xl-7">
               <div class="card shadow-sm h-100 overflow-hidden d-flex flex-column">
                 
@@ -168,7 +152,6 @@ export const HomePage = {
                   </a>
                 </div>
 
-                <!-- Solved Problems List Container -->
                 <div class="flex-grow-1 solved-archive-scroll" id="solvedProblemsContainer">
                   <div class="text-center py-4">
                     <div class="spinner-border spinner-border-sm text-muted mb-2" role="status"></div>
@@ -179,10 +162,8 @@ export const HomePage = {
               </div>
             </div>
 
-            <!-- RIGHT COLUMN: Algorithm Laboratories (Distinct Categorical Palette) -->
             <div class="col-lg-5 col-xl-5">
               <div class="card shadow-sm h-100">
-                
                 <div class="card-header-clean py-2 px-3">
                   <div class="d-flex align-items-center gap-2">
                     <i class="bi bi-cpu text-muted"></i>
@@ -193,7 +174,6 @@ export const HomePage = {
 
                 <div class="card-body p-3 d-flex flex-column gap-2">
                   
-                  <!-- Lab 1: Recursion & Hanoi -->
                   <div class="lab-row-item">
                     <div class="d-flex align-items-center gap-2 text-truncate me-2">
                       <div class="lab-icon-box cat-recur-badge flex-shrink-0">
@@ -214,7 +194,6 @@ export const HomePage = {
                     </a>
                   </div>
 
-                  <!-- Lab 2: Trees & BST -->
                   <div class="lab-row-item">
                     <div class="d-flex align-items-center gap-2 text-truncate me-2">
                       <div class="lab-icon-box cat-tree-badge flex-shrink-0">
@@ -235,7 +214,6 @@ export const HomePage = {
                     </a>
                   </div>
 
-                  <!-- Lab 3: Linked Lists -->
                   <div class="lab-row-item">
                     <div class="d-flex align-items-center gap-2 text-truncate me-2">
                       <div class="lab-icon-box cat-list-badge flex-shrink-0">
@@ -256,7 +234,6 @@ export const HomePage = {
                     </a>
                   </div>
 
-                  <!-- Lab 4: Graph BFS & DFS -->
                   <div class="lab-row-item">
                     <div class="d-flex align-items-center gap-2 text-truncate me-2">
                       <div class="lab-icon-box cat-graph-badge flex-shrink-0">
@@ -277,7 +254,6 @@ export const HomePage = {
                     </a>
                   </div>
 
-                  <!-- Lab 5: Hashing -->
                   <div class="lab-row-item">
                     <div class="d-flex align-items-center gap-2 text-truncate me-2">
                       <div class="lab-icon-box cat-hash-badge flex-shrink-0">
@@ -298,7 +274,6 @@ export const HomePage = {
                     </a>
                   </div>
 
-                  <!-- Lab 6: Sorting -->
                   <div class="lab-row-item">
                     <div class="d-flex align-items-center gap-2 text-truncate me-2">
                       <div class="lab-icon-box cat-array-badge flex-shrink-0">
@@ -320,12 +295,10 @@ export const HomePage = {
                   </div>
 
                 </div>
-
               </div>
             </div>
 
           </div>
-
         </div>
 
       </div>
@@ -372,7 +345,6 @@ export const HomePage = {
       }
     };
 
-    // Switch between Login and Signup modes
     const setAuthMode = (mode) => {
       this._authMode = mode;
       clearAuthError();
@@ -497,7 +469,6 @@ export const HomePage = {
       `;
     };
 
-    // Form Submit: Login or Sign Up
     if (studentAuthForm) {
       studentAuthForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -531,7 +502,6 @@ export const HomePage = {
             Toast.show(`Welcome back, ${userData.username}!`, 'success');
           }
 
-          // Save solved problems and username (triggers authChanged -> rerenders portal)
           if (userData && userData.solvedProblems) {
             StorageManager.setSolvedProblems(userData.solvedProblems);
           }
@@ -547,7 +517,6 @@ export const HomePage = {
       });
     }
 
-    // ── Load data if user is already logged in ────────────────────────────────
     const currentUsername = StorageManager.getUserName();
     if (currentUsername) {
       try {

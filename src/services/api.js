@@ -1,4 +1,3 @@
-// API Service — all backend calls go through here
 const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 async function apiFetch(path, options = {}) {
@@ -45,7 +44,6 @@ async function apiFetch(path, options = {}) {
 }
 
 export const Api = {
-  // GET /problems?category=...&difficulty=...&search=...
   getProblems({ category = '', difficulty = '', search = '' } = {}) {
     const params = new URLSearchParams();
     if (category)   params.set('category', category);
@@ -55,7 +53,6 @@ export const Api = {
     return apiFetch(`/problems${qs}`);
   },
 
-  // POST /users/signup { username, password }
   signup(username, password) {
     return apiFetch('/users/signup', {
       method: 'POST',
@@ -63,7 +60,6 @@ export const Api = {
     });
   },
 
-  // POST /users/login { username, password }
   login(username, password) {
     return apiFetch('/users/login', {
       method: 'POST',
@@ -71,12 +67,10 @@ export const Api = {
     });
   },
 
-  // GET /users/:username
   getUser(username) {
     return apiFetch(`/users/${encodeURIComponent(username)}`);
   },
 
-  // POST /users/solve { username, problemId, isSolved }
   toggleSolve(username, problemId, isSolved) {
     return apiFetch('/users/solve', {
       method: 'POST',

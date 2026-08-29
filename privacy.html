@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — DSA with C</title>
+    <meta name="description" content="Privacy Policy for DSA with C, detailing our minimal data collection and commitment to student privacy.">
+    <link rel="icon" type="image/png" href="/logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --bg-canvas: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-subsurface: #f1f5f9;
+            --border-subtle: #e2e8f0;
+            --border-strong: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --primary: #0f172a;
+            --primary-hover: #1e293b;
+            --accent: #2563eb;
+            --radius-md: 8px;
+        }
+
+        [data-theme='dark'] {
+            --bg-canvas: #090a0f;
+            --bg-surface: #111318;
+            --bg-subsurface: #181b22;
+            --border-subtle: #232834;
+            --border-strong: #333a4d;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --accent: #3b82f6;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.6;
+            transition: background-color 150ms ease, color 150ms ease;
+        }
+
+        .legal-navbar {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0.75rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .legal-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (max-width: 576px) {
+            .legal-card {
+                padding: 1.5rem;
+            }
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-primary);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .text-secondary {
+            color: var(--text-secondary) !important;
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .font-mono {
+            font-family: var(--font-mono);
+        }
+
+        .legal-section {
+            margin-bottom: 2.25rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .legal-section:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .notice-box {
+            background-color: var(--bg-subsurface);
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            padding: 1rem 1.25rem;
+            margin: 1.25rem 0;
+            font-size: 0.925rem;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            border-radius: 4px;
+            background: var(--bg-subsurface);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .legal-footer {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+            padding: 1.5rem 0;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="legal-navbar">
+        <div class="container d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+                <a href="/" class="d-flex align-items-center gap-2 text-decoration-none text-reset">
+                    <img src="/logo.png" alt="Logo" width="28" height="28" style="border-radius: 6px; object-fit: contain;">
+                    <span class="fw-bold">DSA with C</span>
+                </a>
+                <span class="badge-tag ms-2">Privacy</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="themeToggleBtn" aria-label="Toggle Theme">
+                    <i class="bi bi-moon-stars" id="themeIcon"></i>
+                </button>
+                <a href="/" class="btn btn-sm btn-outline-primary d-inline-flex align-items-center gap-1">
+                    <i class="bi bi-arrow-left"></i>
+                    <span>Back to App</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-9">
+                
+                <div class="legal-card">
+                    <div class="mb-4">
+                        <h1 class="h2 fw-bold mb-2">Privacy Policy</h1>
+                        <p class="text-muted small mb-0 font-mono">
+                            Effective Date: August 30, 2026 &bull; Platform: <a href="https://dsa-with-c.vercel.app" target="_blank" rel="noopener noreferrer">dsa-with-c.vercel.app</a>
+                        </p>
+                    </div>
+
+                    <div class="notice-box">
+                        <strong>Privacy-First Commitment:</strong> DSA with C is built for student learning. We believe learning tools should not track, monetize, or harvest user data. We collect only the absolute minimum information required to persist your problem solving progress.
+                    </div>
+
+                    <!-- 1. Information We Collect -->
+                    <section class="legal-section">
+                        <h2 class="h5 fw-bold mb-3">1. Information We Collect</h2>
+                        <p class="text-secondary">
+                            When you create an account and interact with DSA with C, we collect only the following data points:
+                        </p>
+                        <ul class="text-secondary ps-3">
+                            <li class="mb-2"><strong>Username:</strong> A public identifier you choose to log in and label your progress.</li>
+                            <li class="mb-2"><strong>Password (Hashed):</strong> Your chosen password is cryptographically salted and hashed using <code>bcrypt</code> before being stored. We never store, log, or transmit passwords in plaintext.</li>
+                            <li class="mb-2"><strong>Solved Problem Data:</strong> The IDs of problems you mark as solved along with ISO timestamps indicating when each problem was solved.</li>
+                        </ul>
+                    </section>
+
+                    <!-- 2. What We Do NOT Collect -->
+                    <section class="legal-section">
+                        <h2 class="h5 fw-bold mb-3">2. Information We Do NOT Collect</h2>
+                        <p class="text-secondary">
+                            To ensure total privacy and eliminate unnecessary data retention:
+                        </p>
+                        <ul class="text-secondary ps-3">
+                            <li class="mb-2"><strong>No Personal Contact Information:</strong> We do NOT collect email addresses, real names, phone numbers, or physical addresses.</li>
+                            <li class="mb-2"><strong>No Tracking or Ad Cookies:</strong> We do NOT use tracking cookies, advertising pixels, fingerprinting scripts, or third-party behavioral analytics.</li>
+                            <li class="mb-2"><strong>No Financial Data:</strong> The platform is completely free; no payment or billing details are ever requested.</li>
+                        </ul>
+                    </section>
+
+                    <!-- 3. Password Recovery Clarification -->
+                    <section class="legal-section">
+                        <h2 class="h5 fw-bold mb-3">3. Crucial Notice: No Password Recovery</h2>
+                        <div class="alert alert-warning py-2 px-3 small mb-2">
+                            <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                            <strong>Important:</strong> Because we do not store email addresses or phone numbers, we have no mechanism to verify your identity or send password reset links. If you forget your password, your account cannot be recovered.
+                        </div>
+                        <p class="text-secondary">
+                            We encourage users to keep a record of their credentials. In the event of a forgotten password, you may simply create a new username.
+                        </p>
+                    </section>
+
+                    <!-- 4. How Your Data Is Stored & Used -->
+                    <section class="legal-section">
+                        <h2 class="h5 fw-bold mb-3">4. How Your Data Is Stored &amp; Used</h2>
+                        <p class="text-secondary">
+                            Your solved problem states are temporarily stored in your browser's <code>localStorage</code> for immediate, responsive user interface updates, and synchronized via our secure backend API to a MongoDB database to preserve your progress across devices and sessions.
+                        </p>
+                        <p class="text-secondary">
+                            We do not sell, rent, monetize, or disclose your progress data to any third parties.
+                        </p>
+                    </section>
+
+                    <!-- 5. Data Deletion Requests -->
+                    <section class="legal-section">
+                        <h2 class="h5 fw-bold mb-3">5. Data Deletion &amp; Inquiries</h2>
+                        <p class="text-secondary">
+                            If you wish to request the manual deletion of your account and solved progress records from our database, please open a request on our issue tracker with your username:
+                        </p>
+                        <p class="mt-2 mb-0">
+                            👉 <a href="https://github.com/arko252007-dot/dsa-frontend/issues" target="_blank" rel="noopener noreferrer" class="fw-medium">GitHub Issues (arko252007-dot/dsa-frontend/issues)</a>
+                        </p>
+                    </section>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="legal-footer">
+        <div class="container d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <div class="text-muted font-mono" style="font-size: 0.8125rem;">
+                &copy; 2026 DSA with C &bull; Open Source Educational Initiative
+            </div>
+            <div class="d-flex align-items-center gap-3" style="font-size: 0.8125rem;">
+                <a href="/terms.html" class="text-secondary">Terms of Service</a>
+                <span class="text-muted">&bull;</span>
+                <a href="/privacy.html" class="text-secondary fw-medium">Privacy Policy</a>
+                <span class="text-muted">&bull;</span>
+                <a href="https://github.com/arko252007-dot/dsa-frontend" target="_blank" rel="noopener noreferrer" class="text-secondary">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Simple Theme Sync Script -->
+    <script>
+        (function() {
+            const THEME_KEY = 'dsa_theme';
+            function applyTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                document.documentElement.setAttribute('data-bs-theme', theme);
+                const icon = document.getElementById('themeIcon');
+                if (icon) {
+                    icon.className = theme === 'dark' ? 'bi bi-sun' : 'bi bi-moon-stars';
+                }
+            }
+            const saved = localStorage.getItem(THEME_KEY) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(saved);
+
+            const toggleBtn = document.getElementById('themeToggleBtn');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    const current = document.documentElement.getAttribute('data-theme') || 'light';
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    localStorage.setItem(THEME_KEY, next);
+                    applyTheme(next);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
+

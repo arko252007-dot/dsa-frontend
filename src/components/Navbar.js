@@ -1,10 +1,8 @@
-// Top Navbar Component (With Auth-Aware Links, Logout, and Animated Rotating Funny DSA Acronyms)
 import { ThemeManager } from '../services/theme.js';
 import { StorageManager } from '../services/storage.js';
 import { Toast } from './Toast.js';
 import { Router } from '../router.js';
 
-// 20 Curated Funny Full-Forms for "DSA with C"
 const DSA_ACRONYMS = [
   { title: "DSA with C", desc: "Data Structures & Algorithms in C" },
   { title: "Dur Se Acha", desc: "Looks like a breeze until recursion hits." },
@@ -37,7 +35,6 @@ export const Navbar = {
     const username = StorageManager.getUserName();
     const isAuth = Boolean(username);
     const current = DSA_ACRONYMS[acronymIndex] || DSA_ACRONYMS[0];
-
     const solvedCount = StorageManager.getTotalSolvedCount();
 
     return `
@@ -45,7 +42,6 @@ export const Navbar = {
         <div class="container-fluid px-3 px-md-4 px-lg-5">
           <div class="navbar-grid-layout">
             
-            <!-- 1. LEFT SECTION: Logo & Rotating Title -->
             <div class="navbar-left-col">
               <button class="btn btn-sm btn-outline-secondary ${isAuth ? 'd-md-none' : 'd-none'} d-flex align-items-center justify-content-center p-0 me-2 flex-shrink-0"
                       id="mobileMenuToggleBtn"
@@ -60,7 +56,6 @@ export const Navbar = {
               </a>
             </div>
 
-            <!-- 2. CENTER SECTION: Exact Center Segmented Nav Tabs -->
             <div class="navbar-center-col d-none d-md-flex">
               <nav class="nav-segmented-tabs ${isAuth ? '' : 'd-none'}" id="desktopNavLinks">
                 <a href="/" class="nav-tab-item" data-route="/">
@@ -78,10 +73,7 @@ export const Navbar = {
               </nav>
             </div>
 
-            <!-- 3. RIGHT SECTION: Controls (Desktop: Full Meta + Logout + Theme; Mobile: ONLY Theme Toggle) -->
             <div class="navbar-right-col">
-              
-              <!-- Desktop Authenticated Control Bar -->
               <div class="nav-control-bar ${isAuth ? 'd-none d-md-inline-flex' : 'd-none'}" id="navAuthSection">
                 <div class="nav-user-meta text-truncate" style="max-width: 170px;">
                   <span class="user-handle">${username}</span>
@@ -96,7 +88,6 @@ export const Navbar = {
                 </button>
               </div>
 
-              <!-- Mobile Authenticated Theme Button (Clean, Standalone) -->
               <button type="button" class="nav-control-action border rounded d-md-none ${isAuth ? 'd-flex' : 'd-none'} align-items-center justify-content-center flex-shrink-0"
                       id="themeToggleBtnMobile"
                       style="width: 32px; height: 32px;"
@@ -105,7 +96,6 @@ export const Navbar = {
                 <i class="bi bi-moon-stars" id="themeIconMobile"></i>
               </button>
 
-              <!-- Unauthenticated theme toggle -->
               <button class="nav-control-action border rounded ${isAuth ? 'd-none' : 'd-flex'} align-items-center justify-content-center flex-shrink-0"
                       id="themeToggleBtnGuest"
                       style="width: 32px; height: 32px;"
@@ -113,11 +103,11 @@ export const Navbar = {
                 <i class="bi bi-moon-stars" id="themeIconGuest"></i>
               </button>
 
+            </div>
           </div>
         </div>
       </header>
 
-      <!-- Mobile Offcanvas Drawer -->
       <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop">
         <div class="mobile-drawer">
           <div class="mobile-drawer-header">
@@ -165,7 +155,6 @@ export const Navbar = {
     const themeIconMobile = document.getElementById('themeIconMobile');
     const themeIconGuest = document.getElementById('themeIconGuest');
 
-    // Theme toggler display update
     const updateThemeDisplay = (theme) => {
       const iconClass = theme === 'dark' ? 'bi bi-sun text-warning' : 'bi bi-moon-stars text-secondary';
       if (themeIcon) themeIcon.className = iconClass;
@@ -197,7 +186,6 @@ export const Navbar = {
       });
     }
 
-    // Logout handlers
     const handleLogout = () => {
       StorageManager.logout();
       if (mobileDrawerBackdrop) mobileDrawerBackdrop.classList.remove('open');
@@ -208,7 +196,6 @@ export const Navbar = {
     if (navLogoutBtn) navLogoutBtn.addEventListener('click', handleLogout);
     if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', handleLogout);
 
-    // Mobile Drawer Controls
     const openDrawer = () => {
       if (mobileDrawerBackdrop) mobileDrawerBackdrop.classList.add('open');
     };
@@ -229,7 +216,6 @@ export const Navbar = {
       link.addEventListener('click', closeDrawer);
     });
 
-    // ── 5-Second Animated Logo Acronym Rotation ──────────────────────────────
     if (acronymTimer) {
       clearInterval(acronymTimer);
       acronymTimer = null;
@@ -238,25 +224,21 @@ export const Navbar = {
     const rotateAcronym = () => {
       if (!navBrandText || !navBrandLink) return;
 
-      // 1. Trigger slight slide-out animation
       navBrandText.classList.add('anim-out');
 
       setTimeout(() => {
-        // 2. Change text and hover description
         acronymIndex = (acronymIndex + 1) % DSA_ACRONYMS.length;
         const nextItem = DSA_ACRONYMS[acronymIndex];
 
         navBrandText.innerText = nextItem.title;
         navBrandLink.setAttribute('title', nextItem.desc);
 
-        // 3. Trigger smooth slide-in
         navBrandText.classList.remove('anim-out');
       }, 300);
     };
 
     acronymTimer = setInterval(rotateAcronym, 5000);
 
-    // Pause rotation when user hovers over the brand title
     if (navBrandLink) {
       navBrandLink.addEventListener('mouseenter', () => {
         if (acronymTimer) clearInterval(acronymTimer);

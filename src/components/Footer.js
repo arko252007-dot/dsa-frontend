@@ -1,4 +1,3 @@
-// Minimal Developer Footer Component
 export const Footer = {
   render() {
     return `
@@ -9,12 +8,15 @@ export const Footer = {
             <span class="text-muted">&bull;</span>
             <span>Interactive Algorithms &amp; Practice Suite</span>
           </div>
-          <div class="text-muted font-mono" style="font-size: var(--font-xs);">
-            C Implementation &amp; Dry-Run Engine
+          <div class="d-flex align-items-center gap-3 font-mono" style="font-size: var(--font-xs);">
+            <a href="/terms" class="text-muted text-decoration-none">Terms</a>
+            <span class="text-muted">&bull;</span>
+            <a href="/privacy" class="text-muted text-decoration-none">Privacy</a>
+            <span class="text-muted">&bull;</span>
+            <span class="text-muted">C Implementation &amp; Dry-Run Engine</span>
           </div>
         </div>
       </footer>
     `;
   }
 };
-

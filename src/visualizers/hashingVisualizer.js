@@ -1,4 +1,3 @@
-// Hashing & Collision Resolution Visualizer Engine
 export const hashingVisualizer = {
   id: 'hashing',
   title: 'Hashing & Linear Probing',

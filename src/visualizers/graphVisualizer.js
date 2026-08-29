@@ -1,4 +1,3 @@
-// Graph BFS & DFS Traversal Visualizer Engine
 export const graphVisualizer = {
   id: 'graph',
   title: 'Graph Traversals (BFS & DFS)',

@@ -1,9 +1,6 @@
-// Practice Problems Dashboard — data driven from MongoDB via API (Mobile Optimized)
 import { Api } from '../services/api.js';
 import { StorageManager } from '../services/storage.js';
 import { Toast } from '../components/Toast.js';
-
-// ─── DOM builders ─────────────────────────────────────────────────────────────
 
 function buildStatsBar(problems) {
   const stats = StorageManager.getStatsByDifficulty(problems);
@@ -106,7 +103,6 @@ function buildProblems(problems) {
     `;
   }
 
-  // Group by category while preserving exact database insertion order
   const categoryMap = new Map();
   problems.forEach(prob => {
     const cat = prob.category || 'General';
@@ -123,7 +119,6 @@ function buildProblems(problems) {
     return `
       <div class="card shadow-sm mb-3 category-card overflow-hidden" data-category="${category}">
         
-        <!-- Category Header with Matching Icon & Icon-Only Chevron Toggle -->
         <div class="card-header-clean py-2 px-3 category-toggle-header"
              role="button"
              tabindex="0"
@@ -151,7 +146,6 @@ function buildProblems(problems) {
           </div>
         </div>
 
-        <!-- Problem Table Container (Default: d-none / collapsed) -->
         <div class="table-responsive category-table-wrapper d-none">
           <table class="table-clean mb-0" style="min-width: 480px;">
             <thead>
@@ -217,8 +211,6 @@ function buildProblems(problems) {
   }).join('');
 }
 
-// ─── Page object ──────────────────────────────────────────────────────────────
-
 export const PracticePage = {
   _problems: [],
 
@@ -237,7 +229,6 @@ export const PracticePage = {
           </div>
         </div>
 
-        <!-- Clean Hint Modal -->
         <div class="modal-overlay" id="hintModal">
           <div class="modal-dialog-custom">
             <div class="modal-header-custom">
@@ -259,11 +250,9 @@ export const PracticePage = {
   async init() {
     const container = document.getElementById('practiceContent');
 
-    // ── Fetch problems from DB ────────────────────────────────────────────────
     try {
       this._problems = await Api.getProblems();
 
-      // Refresh solved states from DB if user is logged in
       const currentUsername = StorageManager.getUserName();
       if (currentUsername) {
         try {
@@ -272,7 +261,7 @@ export const PracticePage = {
             StorageManager.setSolvedProblems(userData.solvedProblems);
           }
         } catch (uErr) {
-          console.warn('Could not refresh user stats from DB:', uErr);
+          console.warn('Could not refresh user stats from DB, using local cache:', uErr);
         }
       }
     } catch (err) {
@@ -293,7 +282,6 @@ export const PracticePage = {
       return;
     }
 
-    // Extract unique categories strictly in the order they appear from the database
     const categories = ['All Topics'];
     this._problems.forEach(prob => {
       const cat = prob.category || 'General';
@@ -302,11 +290,9 @@ export const PracticePage = {
       }
     });
 
-    // ── Inject full page content ──────────────────────────────────────────────
     container.innerHTML = `
       ${buildStatsBar(this._problems)}
 
-      <!-- Topic Filter Segmented Control -->
       <div class="topic-segmented-control mb-3" id="topicPillsWrapper">
         ${categories.map((cat, idx) => `
           <button class="topic-segment-btn ${idx === 0 ? 'active' : ''}" data-category="${cat}">
@@ -315,7 +301,6 @@ export const PracticePage = {
         `).join('')}
       </div>
 
-      <!-- Search & Filters (Unified Single-Height Cohesive Toolbar) -->
       <div class="problems-toolbar-card mb-3 mb-md-4">
         <div class="problems-toolbar-inner">
           
@@ -358,13 +343,11 @@ export const PracticePage = {
         </div>
       </div>
 
-      <!-- Problem Categories -->
       <div class="d-flex flex-column" id="categoriesContainer">
         ${buildProblems(this._problems)}
       </div>
     `;
 
-    // ── Wire up interactions ──────────────────────────────────────────────────
     this._attachEvents();
   },
 
@@ -395,7 +378,6 @@ export const PracticePage = {
     let activeCategoryTag   = 'All Topics';
     let allExpandedState    = false;
 
-    // Helper: Toggle single category accordion
     const toggleCategoryAccordion = (card, forceOpen = null) => {
       const tableWrapper  = card.querySelector('.category-table-wrapper');
       const unfoldBtn     = card.querySelector('.btn-unfold-category');
@@ -425,7 +407,6 @@ export const PracticePage = {
       }
     };
 
-    // Attach click listener to category headers and unfold buttons
     document.querySelectorAll('.category-card').forEach(card => {
       const header = card.querySelector('.category-toggle-header');
       if (header) {
@@ -435,7 +416,6 @@ export const PracticePage = {
       }
     });
 
-    // Toggle All Categories Button
     if (btnToggleAllCategories) {
       btnToggleAllCategories.addEventListener('click', () => {
         allExpandedState = !allExpandedState;
@@ -482,10 +462,8 @@ export const PracticePage = {
       if (metricSegMed)  metricSegMed.style.width = `${medPct}%`;
       if (metricSegHard) metricSegHard.style.width = `${hardPct}%`;
 
-      // Update each category card header count dynamically
       updateCategoryCounts();
 
-      // Update navbar solved pill if rendered
       const navPill = document.querySelector('.user-stats-pill');
       if (navPill) {
         navPill.innerText = `${StorageManager.getTotalSolvedCount()} solved`;
@@ -512,7 +490,6 @@ export const PracticePage = {
         row.style.display = (matchQuery && matchDiff && matchStatus) ? '' : 'none';
       });
 
-      // Filter category cards and auto-unfold if searching or filtering by specific topic
       document.querySelectorAll('.category-card').forEach(card => {
         const catName = card.getAttribute('data-category');
         const matchTag = activeCategoryTag === 'All Topics' || catName === activeCategoryTag;
@@ -521,14 +498,12 @@ export const PracticePage = {
         
         card.style.display = shouldShow ? '' : 'none';
 
-        // Auto-unfold matching categories if there is a query or specific topic clicked
         if (shouldShow && (query.length > 0 || activeCategoryTag !== 'All Topics')) {
           toggleCategoryAccordion(card, true);
         }
       });
     };
 
-    // Topic Segmented Control Interaction
     document.querySelectorAll('.topic-segment-btn').forEach(chip => {
       chip.addEventListener('click', () => {
         document.querySelectorAll('.topic-segment-btn').forEach(c => c.classList.remove('active'));
@@ -542,7 +517,6 @@ export const PracticePage = {
     if (filterStatus)     filterStatus.addEventListener('change', filterRows);
     if (filterDifficulty) filterDifficulty.addEventListener('change', filterRows);
 
-    // Solved checkboxes
     document.querySelectorAll('.problem-checkbox').forEach(cb => {
       cb.addEventListener('change', e => {
         const id        = cb.getAttribute('data-id');
@@ -573,7 +547,6 @@ export const PracticePage = {
       });
     });
 
-    // Hint Modal Interactions
     const openHint = (title, hint) => {
       if (modalHintTitle) modalHintTitle.innerText = `Hint: ${title}`;
       if (modalHintText) modalHintText.innerText = hint;

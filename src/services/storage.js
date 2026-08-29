@@ -1,4 +1,3 @@
-// Storage Manager Service with DB Progress Sync
 import { Api } from './api.js';
 
 const STORAGE_KEYS = {
@@ -8,7 +7,6 @@ const STORAGE_KEYS = {
 };
 
 export const StorageManager = {
-  // User Profile
   saveUserName(name) {
     if (typeof name === 'string') {
       localStorage.setItem(STORAGE_KEYS.USER_NAME, name.trim());
@@ -30,7 +28,6 @@ export const StorageManager = {
     window.dispatchEvent(new CustomEvent('authChanged', { detail: { username: '' } }));
   },
 
-  // Solved Problem Tracker
   getSolvedProblems() {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.SOLVED_PROBLEMS);
@@ -70,7 +67,6 @@ export const StorageManager = {
     }
     localStorage.setItem(STORAGE_KEYS.SOLVED_PROBLEMS, JSON.stringify(solved));
 
-    // Sync directly to MongoDB backend if user is logged in
     if (username) {
       try {
         await Api.toggleSolve(username, key, isSolved);
