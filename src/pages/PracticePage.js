@@ -119,7 +119,7 @@ function buildProblems(problems) {
     return `
       <div class="card shadow-sm mb-3 category-card overflow-hidden" data-category="${category}">
         
-        <div class="card-header-clean py-2 px-3 category-toggle-header"
+        <div class="card-header-clean py-2 px-2 px-sm-3 category-toggle-header"
              role="button"
              tabindex="0"
              data-category="${category}"
@@ -147,14 +147,14 @@ function buildProblems(problems) {
         </div>
 
         <div class="table-responsive category-table-wrapper d-none">
-          <table class="table-clean mb-0" style="min-width: 480px;">
+          <table class="table-clean mb-0">
             <thead>
               <tr>
-                <th style="width: 48px;" class="text-center">Status</th>
-                <th>Title</th>
-                <th style="width: 95px;">Difficulty</th>
-                <th style="width: 65px;" class="text-center">Hint</th>
-                <th style="width: 90px;" class="text-center">LeetCode</th>
+                <th class="text-center th-col-status">Status</th>
+                <th class="th-col-title">Title</th>
+                <th class="th-col-diff">Difficulty</th>
+                <th class="text-center th-col-hint">Hint</th>
+                <th class="text-center th-col-leetcode">LeetCode</th>
               </tr>
             </thead>
             <tbody>
@@ -168,34 +168,34 @@ function buildProblems(problems) {
                       data-id="${id}"
                       data-difficulty="${prob.difficulty}"
                       data-title="${prob.title.toLowerCase()}">
-                    <td class="text-center">
+                    <td class="text-center th-col-status">
                       <input type="checkbox"
                              class="form-check-input problem-checkbox"
                              data-id="${id}"
                              title="${solved ? 'Solved' : 'Mark as Solved'}"
                              ${solved ? 'checked' : ''}>
                     </td>
-                    <td>
+                    <td class="th-col-title">
                       <span class="problem-title ${solved ? 'solved-title' : 'fw-medium'}">
                         ${prob.title}
                       </span>
                     </td>
-                    <td>
+                    <td class="th-col-diff">
                       <span class="${diffClass}">
                         ${prob.difficulty}
                       </span>
                     </td>
-                    <td class="text-center">
-                      <button class="btn btn-sm btn-outline-secondary py-1 px-2 btn-hint"
+                    <td class="text-center th-col-hint">
+                      <button class="btn btn-sm btn-outline-secondary btn-table-action btn-hint"
                               data-hint="${prob.hint || 'No hint provided for this question.'}"
                               data-title="${prob.title}"
                               title="View Hint">
                         <i class="bi bi-lightbulb"></i>
                       </button>
                     </td>
-                    <td class="text-center">
+                    <td class="text-center th-col-leetcode">
                       <a href="${prob.practiceUrl || 'https://leetcode.com'}" target="_blank" rel="noopener noreferrer"
-                         class="btn btn-sm btn-outline-secondary py-1 px-2"
+                         class="btn btn-sm btn-outline-secondary btn-table-action"
                          title="Practice on LeetCode">
                         <i class="bi bi-box-arrow-up-right"></i>
                       </a>
@@ -216,7 +216,7 @@ export const PracticePage = {
 
   render() {
     return `
-      <div class="container-fluid px-3 px-md-4 px-lg-5 py-2">
+      <div class="container-fluid px-2 px-sm-3 px-md-4 px-lg-5 py-2">
         <div class="mb-3 mb-md-4">
           <h2 class="h4 h3-md fw-bold mb-1">Practice Questions</h2>
           <p class="text-muted small mb-0">Track your problem solving progress across fundamental C concepts, recursion, hashing, and algorithms.</p>

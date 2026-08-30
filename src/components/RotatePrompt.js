@@ -63,7 +63,7 @@ export const RotatePrompt = {
 
   checkAndPrompt(path) {
     if (this._dismissedInSession) return;
-    const isVisualizerRoute = path.startsWith('/visualizer') || path === '/visualizations';
+    const isVisualizerRoute = (path.startsWith('/visualizer') || path === '/visualizations') && path !== '/visualizer/sorting' && !path.startsWith('/visualizer/sorting');
     const isMobilePortrait = window.innerWidth <= 768 && window.innerHeight > window.innerWidth;
 
     const overlay = document.getElementById('rotatePromptOverlay');

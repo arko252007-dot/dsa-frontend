@@ -123,30 +123,33 @@
 }
 
 .code-line {
-  padding: 2px 6px;
+  padding: 3px 8px;
   border-radius: var(--radius-xs);
   white-space: pre;
+  transition: background-color 120ms ease, color 120ms ease;
+  border-left: 3px solid transparent;
 }
 
 .code-line.active {
-  background: var(--code-active-line);
-  color: var(--code-highlight);
+  background: var(--code-active-line) !important;
+  color: var(--code-highlight) !important;
   font-weight: 600;
-  border-left: 2px solid var(--code-highlight);
+  border-left: 3px solid var(--code-highlight) !important;
 }
 
 /* 1. Sorting Visualizer */
 .bars-container {
-  height: 260px;
+  height: 250px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   gap: 2px;
-  padding: 10px 6px;
+  padding: 12px 6px;
   background: var(--bg-canvas);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
-  overflow-x: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -154,6 +157,73 @@
     height: 300px;
     gap: 3px;
     padding: 16px 12px;
+  }
+}
+
+/* Sorting Visualizer Mobile Portrait Optimizations */
+@media (max-width: 767.98px) {
+  .sorting-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .sorting-controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    align-items: stretch;
+    padding-bottom: var(--space-2);
+  }
+
+  .sorting-primary-controls {
+    display: flex;
+    width: 100%;
+    gap: var(--space-2);
+  }
+
+  .sorting-select {
+    flex: 1;
+    min-width: 0 !important;
+    font-size: var(--font-xs);
+  }
+
+  .sorting-action-controls {
+    display: flex;
+    width: 100%;
+    gap: var(--space-2);
+  }
+
+  .sorting-action-controls .btn {
+    flex: 1;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: var(--font-xs);
+  }
+
+  .sorting-sliders-container {
+    background: var(--bg-subsurface);
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .sorting-sliders-container .form-range {
+    height: 1.2rem;
+  }
+
+  .bars-container {
+    height: 220px;
+    padding: 8px 4px;
+    gap: 2px;
+  }
+
+  .visualizer-canvas-panel {
+    padding: var(--space-3);
+  }
+
+  .code-debugger {
+    min-height: 220px;
+    max-height: 300px;
   }
 }
 

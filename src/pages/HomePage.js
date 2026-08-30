@@ -345,33 +345,53 @@ export const HomePage = {
       }
     };
 
+    const authSwitchPrompt = document.getElementById('authSwitchPrompt');
+
+    const bindSwitchLink = () => {
+      const link = document.getElementById('linkSwitchAuth');
+      if (link) {
+        link.addEventListener('click', () => {
+          setAuthMode(this._authMode === 'login' ? 'signup' : 'login');
+        });
+      }
+    };
+
     const setAuthMode = (mode) => {
       this._authMode = mode;
       clearAuthError();
+      const activeClass = 'btn flex-fill py-2 fw-medium btn-primary';
+      const inactiveClass = 'btn flex-fill py-2 fw-medium btn-outline-secondary border-0 bg-transparent';
+
       if (tabBtnLogin && tabBtnSignup) {
         if (mode === 'login') {
-          tabBtnLogin.className = 'btn flex-fill py-3 fw-bold rounded-0 btn-primary';
-          tabBtnSignup.className = 'btn flex-fill py-3 fw-bold rounded-0 btn-light text-muted bg-transparent';
-          if (authHeading) authHeading.innerText = 'Welcome Back!';
-          if (authSubheading) authSubheading.innerText = 'Enter your credentials to access your solved problem logs and practice progress.';
-          if (btnAuthSubmit) btnAuthSubmit.innerHTML = 'Log In to Account &rarr;';
+          tabBtnLogin.className = activeClass;
+          tabBtnSignup.className = inactiveClass;
+          if (authHeading) authHeading.innerText = 'Sign In';
+          if (authSubheading) authSubheading.innerText = 'Enter your credentials to access your solved problems and progress.';
+          if (btnAuthSubmit) btnAuthSubmit.innerText = 'Sign In';
+          if (authSwitchPrompt) {
+            authSwitchPrompt.innerHTML = "Need an account? <a href='javascript:void(0)' class='text-primary fw-medium' id='linkSwitchAuth'>Register</a>";
+            bindSwitchLink();
+          }
+          if (studentPasswordInput) studentPasswordInput.setAttribute('autocomplete', 'current-password');
         } else {
-          tabBtnSignup.className = 'btn flex-fill py-3 fw-bold rounded-0 btn-primary';
-          tabBtnLogin.className = 'btn flex-fill py-3 fw-bold rounded-0 btn-light text-muted bg-transparent';
-          if (authHeading) authHeading.innerText = 'Create Student Account';
-          if (authSubheading) authSubheading.innerText = 'Register a unique username and password to track your DSA practice progress.';
-          if (btnAuthSubmit) btnAuthSubmit.innerHTML = 'Create Account &rarr;';
+          tabBtnSignup.className = activeClass;
+          tabBtnLogin.className = inactiveClass;
+          if (authHeading) authHeading.innerText = 'Create Account';
+          if (authSubheading) authSubheading.innerText = 'Create a unique username and password to track your DSA practice progress.';
+          if (btnAuthSubmit) btnAuthSubmit.innerText = 'Create Account';
+          if (authSwitchPrompt) {
+            authSwitchPrompt.innerHTML = "Already have an account? <a href='javascript:void(0)' class='text-primary fw-medium' id='linkSwitchAuth'>Sign in</a>";
+            bindSwitchLink();
+          }
+          if (studentPasswordInput) studentPasswordInput.setAttribute('autocomplete', 'new-password');
         }
       }
     };
 
     if (tabBtnLogin) tabBtnLogin.addEventListener('click', () => setAuthMode('login'));
     if (tabBtnSignup) tabBtnSignup.addEventListener('click', () => setAuthMode('signup'));
-    if (linkSwitchAuth) {
-      linkSwitchAuth.addEventListener('click', () => {
-        setAuthMode(this._authMode === 'login' ? 'signup' : 'login');
-      });
-    }
+    bindSwitchLink();
 
     const portalHeroPercent = document.getElementById('portalHeroPercent');
     const portalTotalRatioLabel = document.getElementById('portalTotalRatioLabel');
@@ -422,50 +442,48 @@ export const HomePage = {
       }
 
       solvedProblemsContainer.innerHTML = `
-        <table class="table-clean mb-0">
-          <thead>
-            <tr>
-              <th style="width: 45px;" class="text-center">Done</th>
-              <th>Problem Title</th>
-              <th style="width: 140px;">Category</th>
-              <th style="width: 90px;">Difficulty</th>
-              <th style="width: 90px;" class="text-center">LeetCode</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${solvedProblems.map(prob => {
-              const diffClass = (prob.difficulty || 'easy') === 'easy' ? 'badge-pill-easy' : (prob.difficulty === 'medium' ? 'badge-pill-medium' : 'badge-pill-hard');
+        <div class="table-responsive">
+          <table class="table-clean mb-0">
+            <thead>
+              <tr>
+                <th class="th-col-title">Title</th>
+                <th class="th-col-cat d-none d-md-table-cell">Category</th>
+                <th class="th-col-diff">Difficulty</th>
+                <th class="text-center th-col-leetcode">LeetCode</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${solvedProblems.map(prob => {
+                const diffClass = (prob.difficulty || 'easy') === 'easy' ? 'badge-pill-easy' : (prob.difficulty === 'medium' ? 'badge-pill-medium' : 'badge-pill-hard');
 
-              return `
-                <tr>
-                  <td class="text-center">
-                    <i class="bi bi-check-circle-fill text-success fs-6"></i>
-                  </td>
-                  <td>
-                    <span class="fw-semibold">${prob.title}</span>
-                  </td>
-                  <td>
-                    <span class="text-muted small text-truncate d-inline-block" style="max-width: 130px;">
-                      ${prob.category}
-                    </span>
-                  </td>
-                  <td>
-                    <span class="${diffClass}">
-                      ${prob.difficulty}
-                    </span>
-                  </td>
-                  <td class="text-center">
-                    <a href="${prob.practiceUrl || 'https://leetcode.com'}" target="_blank" rel="noopener noreferrer"
-                       class="btn btn-sm btn-outline-secondary py-1 px-2" style="font-size: 0.75rem;"
-                       title="Practice on LeetCode">
-                      <i class="bi bi-box-arrow-up-right"></i>
-                    </a>
-                  </td>
-                </tr>
-              `;
-            }).join('')}
-          </tbody>
-        </table>
+                return `
+                  <tr>
+                    <td class="th-col-title">
+                      <span class="fw-semibold">${prob.title}</span>
+                    </td>
+                    <td class="th-col-cat d-none d-md-table-cell">
+                      <span class="text-muted small text-truncate d-inline-block" style="max-width: 140px;">
+                        ${prob.category}
+                      </span>
+                    </td>
+                    <td class="th-col-diff">
+                      <span class="${diffClass}">
+                        ${prob.difficulty}
+                      </span>
+                    </td>
+                    <td class="text-center th-col-leetcode">
+                      <a href="${prob.practiceUrl || 'https://leetcode.com'}" target="_blank" rel="noopener noreferrer"
+                         class="btn btn-sm btn-outline-secondary btn-table-action"
+                         title="Practice on LeetCode">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                      </a>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
       `;
     };
 

@@ -19,23 +19,23 @@ export const sortingVisualizer = {
           </a>
         </div>
 
-        <div class="visualizer-layout">
+        <div class="visualizer-layout sorting-layout">
           <div class="visualizer-canvas-panel card-panel">
-            <div class="visualizer-controls">
-              <div class="control-group">
-                <select id="algoSelect" class="form-select" style="min-width: 175px;">
+            <div class="visualizer-controls sorting-controls">
+              <div class="control-group sorting-primary-controls">
+                <select id="algoSelect" class="form-select sorting-select">
                   <option value="bubble">Bubble Sort</option>
                   <option value="selection">Selection Sort</option>
                   <option value="insertion">Insertion Sort</option>
                   <option value="merge">Merge Sort</option>
                   <option value="quick">Quick Sort</option>
                 </select>
-                <button id="btnGenerate" class="btn btn-secondary">
+                <button id="btnGenerate" class="btn btn-secondary text-nowrap">
                   <i class="bi bi-shuffle"></i> Randomize
                 </button>
               </div>
 
-              <div class="control-group">
+              <div class="control-group sorting-action-controls">
                 <button id="btnStep" class="btn btn-warning">
                   <i class="bi bi-step-forward"></i> Step
                 </button>
@@ -47,14 +47,14 @@ export const sortingVisualizer = {
 
             <div class="bars-container" id="barsContainer"></div>
 
-            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mt-2">
-              <div class="d-flex align-items-center gap-2">
-                <span class="form-label mb-0">Size:</span>
-                <input type="range" class="form-range" id="sizeRange" min="6" max="28" value="14" style="width: 110px;">
+            <div class="sorting-sliders-container d-flex align-items-center justify-content-between flex-wrap gap-2 mt-2">
+              <div class="d-flex align-items-center gap-2 flex-fill" style="min-width: 120px;">
+                <span class="form-label mb-0 small text-nowrap">Size:</span>
+                <input type="range" class="form-range" id="sizeRange" min="6" max="28" value="14">
               </div>
-              <div class="d-flex align-items-center gap-2">
-                <span class="form-label mb-0">Speed:</span>
-                <input type="range" class="form-range" id="speedRange" min="50" max="1000" value="350" style="width: 110px;">
+              <div class="d-flex align-items-center gap-2 flex-fill" style="min-width: 120px;">
+                <span class="form-label mb-0 small text-nowrap">Speed:</span>
+                <input type="range" class="form-range" id="speedRange" min="50" max="1000" value="350">
               </div>
             </div>
 
@@ -364,16 +364,25 @@ export const sortingVisualizer = {
       array = [];
       bars = [];
       const size = parseInt(sizeRange.value);
-      const barWidth = Math.max(12, Math.floor(580 / size) - 3);
+      const containerWidth = barsContainer.clientWidth || 360;
+      const containerHeight = barsContainer.clientHeight || 240;
+      const maxHeight = Math.max(100, containerHeight - 35);
+      const availableWidth = Math.max(160, containerWidth - (size * 2) - 16);
+      const barWidth = Math.max(6, Math.min(42, Math.floor(availableWidth / size)));
 
       for (let i = 0; i < size; i++) {
-        const val = Math.floor(Math.random() * 240) + 25;
+        const val = Math.floor(Math.random() * (maxHeight - 25)) + 25;
         array.push(val);
         const bar = document.createElement('div');
         bar.className = 'bar';
         bar.style.height = `${val}px`;
         bar.style.width = `${barWidth}px`;
-        if (size <= 20) bar.innerText = val;
+        bar.style.flex = `0 1 ${barWidth}px`;
+        if (barWidth >= 18 && size <= 18) {
+          bar.innerText = val;
+        } else {
+          bar.innerText = '';
+        }
         barsContainer.appendChild(bar);
         bars.push(bar);
       }
@@ -432,7 +441,10 @@ export const sortingVisualizer = {
         if (bars[op.index]) {
           bars[op.index].classList.add('swapping');
           bars[op.index].style.height = `${op.val}px`;
-          if (bars.length <= 20) bars[op.index].innerText = op.val;
+          const bw = parseFloat(bars[op.index].style.width) || 20;
+          if (bw >= 18 && bars.length <= 18) {
+            bars[op.index].innerText = op.val;
+          }
         }
       } else if (op.type === 'sorted') {
         if (bars[op.index]) bars[op.index].classList.add('sorted');
@@ -459,6 +471,23 @@ export const sortingVisualizer = {
       }
     }
 
+    const handleResize = () => {
+      if (!isPlaying && bars.length > 0) {
+        const containerWidth = barsContainer.clientWidth || 360;
+        const availableWidth = Math.max(160, containerWidth - (bars.length * 2) - 16);
+        const barWidth = Math.max(6, Math.min(42, Math.floor(availableWidth / bars.length)));
+        bars.forEach((bar, i) => {
+          bar.style.width = `${barWidth}px`;
+          bar.style.flex = `0 1 ${barWidth}px`;
+          if (barWidth >= 18 && bars.length <= 18) {
+            bar.innerText = array[i] !== undefined ? array[i] : '';
+          } else {
+            bar.innerText = '';
+          }
+        });
+      }
+    };
+
     // Event Bindings
     btnGenerate.addEventListener('click', generateArray);
     algoSelect.addEventListener('change', generateArray);
@@ -472,11 +501,13 @@ export const sortingVisualizer = {
         playTimer = setInterval(applyStep, speed);
       }
     });
+    window.addEventListener('resize', handleResize);
 
     generateArray();
 
     return () => {
       clearInterval(playTimer);
+      window.removeEventListener('resize', handleResize);
     };
   }
 };
