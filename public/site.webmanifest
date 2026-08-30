@@ -1,6 +1,8 @@
 {
-  "name": "DSA with C",
+  "name": "DSA with C — Practice DSA in C with Live Algorithm Visualizers",
   "short_name": "DSA with C",
+  "description": "Master Data Structures and Algorithms in C with step-by-step dry-run algorithm visualizers (Trees, Hanoi, Sorting, Linked Lists, Graphs, Hashing).",
+  "categories": ["education", "developer tools"],
   "icons": [
     {
       "src": "/favicon-192x192.png",
@@ -17,3 +19,4 @@
   "background_color": "#0f172a",
   "display": "standalone"
 }
+

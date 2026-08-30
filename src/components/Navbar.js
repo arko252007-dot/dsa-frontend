@@ -43,7 +43,7 @@ export const Navbar = {
           <div class="navbar-grid-layout">
             
             <div class="navbar-left-col">
-              <button class="btn btn-sm btn-outline-secondary ${isAuth ? 'd-md-none' : 'd-none'} d-flex align-items-center justify-content-center p-0 me-2 flex-shrink-0"
+              <button class="btn btn-sm btn-outline-secondary d-md-none d-flex align-items-center justify-content-center p-0 me-2 flex-shrink-0"
                       id="mobileMenuToggleBtn"
                       style="width: 32px; height: 32px;"
                       aria-label="Open Menu">
@@ -57,18 +57,18 @@ export const Navbar = {
             </div>
 
             <div class="navbar-center-col d-none d-md-flex">
-              <nav class="nav-segmented-tabs ${isAuth ? '' : 'd-none'}" id="desktopNavLinks">
+              <nav class="nav-segmented-tabs d-flex" id="desktopNavLinks">
                 <a href="/" class="nav-tab-item" data-route="/">
                   <i class="bi bi-grid-1x2"></i>
                   <span>Explore</span>
                 </a>
-                <a href="/practice" class="nav-tab-item" data-route="/practice">
-                  <i class="bi bi-terminal"></i>
-                  <span>Problems</span>
-                </a>
                 <a href="/visualizations" class="nav-tab-item" data-route="/visualizations">
                   <i class="bi bi-play-circle"></i>
                   <span>Visualizers</span>
+                </a>
+                <a href="/practice" class="nav-tab-item" data-route="/practice">
+                  <i class="bi bi-terminal"></i>
+                  <span>Problems</span>
                 </a>
               </nav>
             </div>
@@ -122,18 +122,24 @@ export const Navbar = {
             <a href="/" class="mobile-nav-link" data-route="/">
               <i class="bi bi-house-door fs-5"></i> Home
             </a>
-            <a href="/practice" class="mobile-nav-link" data-route="/practice">
-              <i class="bi bi-code-square fs-5"></i> Practice Questions
-            </a>
             <a href="/visualizations" class="mobile-nav-link" data-route="/visualizations">
               <i class="bi bi-play-circle fs-5"></i> Algorithm Visualizers
+            </a>
+            <a href="/practice" class="mobile-nav-link" data-route="/practice">
+              <i class="bi bi-code-square fs-5"></i> Practice Questions
             </a>
           </div>
 
           <div class="mt-auto pt-3 border-top">
-            <button class="btn btn-sm btn-outline-danger w-100 py-2 d-flex align-items-center justify-content-center gap-2" id="mobileLogoutBtn">
-              <i class="bi bi-box-arrow-right"></i> Logout (${username})
-            </button>
+            ${isAuth ? `
+              <button class="btn btn-sm btn-outline-danger w-100 py-2 d-flex align-items-center justify-content-center gap-2" id="mobileLogoutBtn">
+                <i class="bi bi-box-arrow-right"></i> Logout (${username})
+              </button>
+            ` : `
+              <a href="/" class="btn btn-sm btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-person-fill"></i> Sign In / Register
+              </a>
+            `}
           </div>
         </div>
       </div>

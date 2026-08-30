@@ -8,6 +8,7 @@ import { Navbar } from './components/Navbar.js';
 import { RotatePrompt } from './components/RotatePrompt.js';
 import { StorageManager } from './services/storage.js';
 import { Toast } from './components/Toast.js';
+import { SeoManager } from './services/seo.js';
 
 let currentRouteHandler = null;
 
@@ -18,8 +19,8 @@ const routes = [
   { path: '/privacy', view: PrivacyPage, isPublic: true },
   { path: '/privacy.html', view: PrivacyPage, isPublic: true },
   { path: '/practice', view: PracticePage, isPublic: false },
-  { path: '/visualizations', view: VisualizationsHub, isPublic: false },
-  { path: '/visualizer/:id', view: VisualizerPage, isPublic: false },
+  { path: '/visualizations', view: VisualizationsHub, isPublic: true },
+  { path: '/visualizer/:id', view: VisualizerPage, isPublic: true },
 ];
 
 function parseRoute() {
@@ -92,6 +93,7 @@ export const Router = {
 
     Navbar.updateActiveRoute(path);
     RotatePrompt.checkAndPrompt(path);
+    SeoManager.update(path);
     window.scrollTo({ top: 0, behavior: 'instant' });
   },
 

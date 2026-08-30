@@ -2,12 +2,28 @@ export const VisualizationsHub = {
   render() {
     const visualizers = [
       {
+        id: 'tree',
+        title: 'Binary Search Trees (BST)',
+        category: 'Trees & Traversals',
+        icon: 'bi-diagram-2',
+        badgeClass: 'cat-tree-badge',
+        desc: 'Interactive tree visualization with BST node insertions, search, and Inorder, Preorder, Postorder traversals in C.'
+      },
+      {
+        id: 'hanoi',
+        title: 'Tower of Hanoi',
+        category: 'Recursion & Stack',
+        icon: 'bi-arrow-repeat',
+        badgeClass: 'cat-recur-badge',
+        desc: 'Divide-and-conquer recursion solver for optimal disk movements, call stack activation records & C dry-run.'
+      },
+      {
         id: 'sorting',
         title: 'Sorting Algorithms',
         category: 'Arrays & Sorting',
         icon: 'bi-bar-chart-steps',
         badgeClass: 'cat-array-badge',
-        desc: 'Bubble, Selection, Insertion, Merge, and Quick Sort with real-time C dry-runs.'
+        desc: 'Bubble, Selection, Insertion, Merge, and Quick Sort with real-time array animations and C dry-runs.'
       },
       {
         id: 'linked-list',
@@ -18,44 +34,28 @@ export const VisualizationsHub = {
         desc: 'Singly, Doubly, and Circular Linked Lists with position insertions, deletions, and pointer transitions.'
       },
       {
-        id: 'hashing',
-        title: 'Hash Tables & Linear Probing',
-        category: 'Hashing',
-        icon: 'bi-grid-3x3',
-        badgeClass: 'cat-hash-badge',
-        desc: 'Hash modulo function with linear probing collision resolution simulation.'
-      },
-      {
-        id: 'hanoi',
-        title: 'Tower of Hanoi',
-        category: 'Recursion',
-        icon: 'bi-arrow-repeat',
-        badgeClass: 'cat-recur-badge',
-        desc: 'Divide-and-conquer recursion solver for optimal disk movements & call stacks.'
-      },
-      {
-        id: 'tree',
-        title: 'Binary Search Trees (BST)',
-        category: 'Trees',
-        icon: 'bi-diagram-2',
-        badgeClass: 'cat-tree-badge',
-        desc: 'BST node insertions and Inorder, Preorder, Postorder traversals.'
-      },
-      {
         id: 'graph',
         title: 'Graph Traversals (BFS & DFS)',
-        category: 'Graphs',
+        category: 'Graphs & Networks',
         icon: 'bi-diagram-3-fill',
         badgeClass: 'cat-graph-badge',
-        desc: 'Custom vertex & edge canvas with Queue-based BFS and Stack-based DFS.'
+        desc: 'Custom vertex & edge canvas with Queue-based BFS and Stack-based DFS traversal trace in C.'
+      },
+      {
+        id: 'hashing',
+        title: 'Hash Tables & Linear Probing',
+        category: 'Hashing & Tables',
+        icon: 'bi-grid-3x3',
+        badgeClass: 'cat-hash-badge',
+        desc: 'Hash modulo function with linear probing collision resolution simulation and slot allocation.'
       }
     ];
 
     return `
       <div class="container-fluid px-3 px-md-4 px-lg-5 py-2 py-md-3">
         <div class="mb-3 mb-md-4">
-          <h3 class="fw-semibold mb-1">Algorithm Visualizers</h3>
-          <p class="text-muted small mb-0 font-mono" style="font-size: var(--font-xs);">Step-by-step memory mutation, pointer transitions, and C dry-run execution engines.</p>
+          <h1 class="fw-semibold h3 mb-1">Algorithm Visualizers &amp; Dry-Run Simulators in C</h1>
+          <p class="text-muted small mb-0 font-mono" style="font-size: var(--font-xs);">Step-by-step memory mutation, pointer transitions, recursion call stack frames, and live C dry-run execution engines.</p>
         </div>
 
         <div class="row g-3 g-md-4">

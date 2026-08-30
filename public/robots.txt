@@ -1,5 +1,10 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dsa-with-c.vercel.app/sitemap.xml
+User-agent: Googlebot
+Allow: /
 
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://dsa-with-c.vercel.app/sitemap.xml
