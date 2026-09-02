@@ -165,7 +165,7 @@ export const graphVisualizer = {
           div.classList.remove('selected');
           statusText.innerHTML = `Node ${id} deselected.`;
         } else {
-          // Connect edge
+          // Undirected graph — add symmetric adjacency entries
           if (!adjList[selectedNodeId].includes(id)) {
             adjList[selectedNodeId].push(id);
             adjList[id].push(selectedNodeId);

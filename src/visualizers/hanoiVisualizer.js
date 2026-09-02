@@ -130,13 +130,16 @@ export const hanoiVisualizer = {
       }
     }
 
+    // Pre-calculate full recursion trace so step-by-step UI execution is linear
     function generateMoves(n, source, aux, target) {
       if (n === 1) {
         moves.push({ disk: 1, from: source, to: target, line: 2 });
         return;
       }
+      // Shift n-1 stack onto auxiliary peg
       generateMoves(n - 1, source, target, aux);
       moves.push({ disk: n, from: source, to: target, line: 8 });
+      // Shift n-1 stack from auxiliary peg onto final target
       generateMoves(n - 1, aux, source, target);
     }
 

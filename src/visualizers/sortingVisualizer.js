@@ -74,7 +74,6 @@ export const sortingVisualizer = {
       </div>
     `;
 
-    // Elements
     const barsContainer = container.querySelector('#barsContainer');
     const codeDebugger = container.querySelector('#codeDebugger');
     const algoSelect = container.querySelector('#algoSelect');
@@ -488,7 +487,6 @@ export const sortingVisualizer = {
       }
     };
 
-    // Event Bindings
     btnGenerate.addEventListener('click', generateArray);
     algoSelect.addEventListener('change', generateArray);
     sizeRange.addEventListener('input', generateArray);

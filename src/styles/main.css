@@ -21,27 +21,74 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.025em;
   color: var(--text-primary);
   margin-top: 0;
+  margin-bottom: var(--space-3);
 }
 
-h1 { font-size: var(--font-3xl); }
-h2 { font-size: var(--font-2xl); }
-h3 { font-size: var(--font-xl); }
-h4 { font-size: var(--font-lg); }
-h5 { font-size: var(--font-md); }
-h6 { font-size: var(--font-base); }
+h1 {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+@media (max-width: 767.98px) {
+  h1 {
+    font-size: 1.85rem;
+  }
+}
+
+h2 {
+  font-size: var(--font-2xl);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+h4 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+h5 {
+  font-size: var(--font-md);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+h6 {
+  font-size: var(--font-base);
+  font-weight: 600;
+  line-height: 1.4;
+}
 
 p {
   margin-top: 0;
   margin-bottom: var(--space-2);
 }
 
-code, pre, kbd, samp {
-  font-family: var(--font-mono);
+a {
+  color: var(--bs-link-color);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+a:hover {
+  color: var(--bs-link-hover-color);
+}
+
+code, pre, kbd, samp, .font-mono, .dry-run-panel, .code-panel, .code-block, .code-debugger, .debugger-body {
+  font-family: var(--font-mono) !important;
   font-size: 0.875em;
 }
 
@@ -367,8 +414,8 @@ code, pre, kbd, samp {
   font-family: var(--font-mono) !important;
   font-size: var(--font-xs) !important;
   font-weight: 600 !important;
-  padding: 3px 8px !important;
-  border-radius: var(--radius-xs) !important;
+  padding: 3px 10px !important;
+  border-radius: var(--radius-full) !important;
   letter-spacing: 0.03em !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -376,8 +423,8 @@ code, pre, kbd, samp {
 
 .badge-primary, .badge.badge-primary, .badge.bg-primary {
   background-color: var(--primary-subtle) !important;
-  color: var(--primary) !important;
-  border: 1px solid rgba(59, 130, 246, 0.25) !important;
+  color: var(--bs-primary-text-emphasis, var(--primary)) !important;
+  border: 1px solid var(--card-border-tint) !important;
 }
 
 .badge-success, .badge.badge-success, .badge.bg-success {
@@ -417,16 +464,16 @@ code, pre, kbd, samp {
   color: var(--text-primary) !important;
   font-family: var(--font-sans);
   font-size: var(--font-sm);
-  border-radius: var(--radius-md);
-  padding: 6px 10px;
+  border-radius: var(--bs-border-radius);
+  padding: 7px 12px;
   outline: none;
-  min-height: 36px;
+  min-height: 38px;
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .form-control:focus, .form-select:focus {
-  border-color: var(--primary) !important;
-  box-shadow: 0 0 0 2px var(--primary-subtle) !important;
+  border-color: var(--bs-primary) !important;
+  box-shadow: 0 0 0 3px var(--bs-focus-ring-color) !important;
 }
 
 .form-control::placeholder {
@@ -463,15 +510,16 @@ code, pre, kbd, samp {
 /* ─── Cards & Surfaces ───────────────────────────────────────────────────────── */
 .card, .card-panel {
   background-color: var(--bg-surface) !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: var(--radius-md);
+  border: 1px solid var(--card-border-tint) !important;
+  border-radius: var(--bs-card-border-radius);
   color: var(--text-primary);
   box-shadow: var(--shadow-card);
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
 }
 
 .card-header-clean {
   background-color: var(--bg-subsurface) !important;
-  border-bottom: 1px solid var(--border-subtle) !important;
+  border-bottom: 1px solid var(--card-border-tint) !important;
   padding: var(--space-2) var(--space-4);
   display: flex;
   align-items: center;
@@ -625,7 +673,7 @@ code, pre, kbd, samp {
   .badge-pill-easy,
   .badge-pill-medium,
   .badge-pill-hard {
-    padding: 1px 4px !important;
+    padding: 2px 6px !important;
     font-size: 9.5px !important;
     letter-spacing: 0.02em;
   }
@@ -656,7 +704,7 @@ code, pre, kbd, samp {
 }
 
 .problem-row:hover .problem-title:not(.solved-title) {
-  color: var(--primary);
+  color: var(--bs-primary);
 }
 
 .solved-title {
@@ -672,8 +720,8 @@ code, pre, kbd, samp {
   border: 1px solid var(--diff-easy-border) !important;
   font-family: var(--font-mono);
   font-weight: 600;
-  padding: 2px 8px;
-  border-radius: var(--radius-xs);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
   font-size: var(--font-xs);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -687,8 +735,8 @@ code, pre, kbd, samp {
   border: 1px solid var(--diff-medium-border) !important;
   font-family: var(--font-mono);
   font-weight: 600;
-  padding: 2px 8px;
-  border-radius: var(--radius-xs);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
   font-size: var(--font-xs);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -702,8 +750,8 @@ code, pre, kbd, samp {
   border: 1px solid var(--diff-hard-border) !important;
   font-family: var(--font-mono);
   font-weight: 600;
-  padding: 2px 8px;
-  border-radius: var(--radius-xs);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
   font-size: var(--font-xs);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -728,7 +776,7 @@ code, pre, kbd, samp {
   font-family: var(--font-sans);
   font-weight: 500;
   font-size: var(--font-sm);
-  padding: 4px 12px;
+  padding: 5px 14px;
   border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
@@ -743,9 +791,9 @@ code, pre, kbd, samp {
 }
 
 .nav-tab-item.active {
-  color: var(--text-primary);
+  color: var(--bs-primary-text-emphasis, var(--bs-primary));
   background-color: var(--bg-surface);
-  border-color: var(--border-strong);
+  border-color: var(--card-border-tint);
   font-weight: 600;
   box-shadow: var(--shadow-subtle);
 }
@@ -1090,13 +1138,20 @@ code, pre, kbd, samp {
 
 /* ─── Visualizer Hub Cards (Explore Labs) ───────────────────────────────────── */
 .visualizer-hub-card {
-  transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--bs-card-border-radius) !important;
+  border: 1px solid var(--card-border-tint) !important;
+  border-top: 3px solid var(--bs-primary) !important;
+  background-color: var(--bg-surface) !important;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
 .visualizer-hub-card:hover {
   transform: translateY(-2px);
   border-color: var(--border-strong) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-top-color: var(--bs-primary) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
 .btn-card-launch {
@@ -1118,9 +1173,9 @@ code, pre, kbd, samp {
 }
 
 .btn-card-launch:hover {
-  background-color: var(--text-primary);
-  color: var(--bg-surface);
-  border-color: var(--text-primary);
+  background-color: var(--bs-primary);
+  color: #ffffff !important;
+  border-color: var(--bs-primary);
 }
 
 /* Stats Pill Chip */

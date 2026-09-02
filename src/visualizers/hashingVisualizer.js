@@ -138,6 +138,7 @@ export const hashingVisualizer = {
 
       highlightLine(0); await sleep(500);
 
+      // Normalize negative inputs
       let key = val % size;
       if (key < 0) key += size;
 
@@ -166,6 +167,7 @@ export const hashingVisualizer = {
         bucketElement.classList.add('collision');
         highlightLine(6); await sleep(700);
 
+        // Linear probing wraps around — track start index to detect a full table cycle
         const original_key = key;
         highlightLine(7); await sleep(400);
 

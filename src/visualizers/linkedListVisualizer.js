@@ -116,7 +116,7 @@ export const linkedListVisualizer = {
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-    // ── C Code Templates (0-based Indexing) ─────────────────────────────────────
+    // Dry-run snippets with 0-based indexing
     const codeSnippets = {
       singly: {
         insertHead: {
@@ -354,7 +354,6 @@ export const linkedListVisualizer = {
       }
     }
 
-    // ── Render Dynamic Canvas UI Based on List Type ─────────────────────────────
     function renderListUI() {
       llCanvas.innerHTML = '';
       if (linkedList.length === 0) {
@@ -364,7 +363,6 @@ export const linkedListVisualizer = {
       }
       emptyListLabel.style.display = 'none';
 
-      // For Doubly Linked List, show leading NULL terminal
       if (currentListType === 'doubly') {
         const leadingNull = document.createElement('div');
         leadingNull.className = 'null-terminal me-2';
@@ -380,7 +378,6 @@ export const linkedListVisualizer = {
         const wrapper = document.createElement('div');
         wrapper.className = 'll-node-wrapper';
 
-        // HEAD pointer indicator
         if (index === 0) {
           const headPtr = document.createElement('div');
           headPtr.className = 'head-pointer';
@@ -388,7 +385,6 @@ export const linkedListVisualizer = {
           wrapper.appendChild(headPtr);
         }
 
-        // TAIL pointer indicator for Doubly
         if (currentListType === 'doubly' && index === linkedList.length - 1 && index > 0) {
           const tailPtr = document.createElement('div');
           tailPtr.className = 'tail-pointer';
@@ -396,7 +392,6 @@ export const linkedListVisualizer = {
           wrapper.appendChild(tailPtr);
         }
 
-        // Node element rendering
         const node = document.createElement('div');
         node.id = `ll-node-${index}`;
 
@@ -417,7 +412,6 @@ export const linkedListVisualizer = {
 
         wrapper.appendChild(node);
 
-        // 0-based Index Tag underneath each node
         const indexTag = document.createElement('div');
         indexTag.className = 'node-index-tag';
         indexTag.innerText = `[${index}]`;
@@ -425,7 +419,6 @@ export const linkedListVisualizer = {
 
         llCanvas.appendChild(wrapper);
 
-        // Arrows connecting nodes
         if (index < linkedList.length - 1) {
           const arrow = document.createElement('i');
           arrow.className = currentListType === 'doubly' ? 'bi bi-arrow-left-right dll-arrow' : 'bi bi-arrow-right ll-arrow';
@@ -434,7 +427,6 @@ export const linkedListVisualizer = {
         }
       });
 
-      // Circular Linked List Return Loop Indicator
       if (currentListType === 'circular' && linkedList.length > 0) {
         const loopBadge = document.createElement('div');
         loopBadge.className = 'cll-loop-badge';
@@ -442,7 +434,6 @@ export const linkedListVisualizer = {
         llCanvas.appendChild(loopBadge);
       }
 
-      // Doubly Linked List Trailing NULL terminal
       if (currentListType === 'doubly') {
         const rightArrow = document.createElement('i');
         rightArrow.className = 'bi bi-arrow-left-right dll-arrow ms-2';
@@ -469,7 +460,6 @@ export const linkedListVisualizer = {
       nodePosInput.disabled = disabled;
     }
 
-    // ── 1. INSERT AT HEAD (Index 0) ─────────────────────────────────────────────
     async function insertHead() {
       const val = nodeValInput.value.trim();
       if (!val || isAnimating) return;
@@ -496,7 +486,6 @@ export const linkedListVisualizer = {
       nodeValInput.value = '';
     }
 
-    // ── 2. INSERT AT TAIL (Index N) ─────────────────────────────────────────────
     async function insertTail() {
       const val = nodeValInput.value.trim();
       if (!val || isAnimating) return;
@@ -553,7 +542,6 @@ export const linkedListVisualizer = {
       nodeValInput.value = '';
     }
 
-    // ── 3. INSERT AT PREFERRED 0-BASED INDEX ───────────────────────────────────
     async function insertAtPosition() {
       const val = nodeValInput.value.trim();
       const posStr = nodePosInput.value.trim();
@@ -616,7 +604,6 @@ export const linkedListVisualizer = {
       nodePosInput.value = '';
     }
 
-    // ── 4. DELETE BY VALUE ──────────────────────────────────────────────────────
     async function deleteByValue() {
       const val = nodeValInput.value.trim();
       if (!val || isAnimating) return;
@@ -631,7 +618,6 @@ export const linkedListVisualizer = {
 
       highlightLine(0); await sleep(400);
 
-      // Check HEAD (index 0)
       if (String(linkedList[0]) === String(val)) {
         statusText.innerHTML = `Target value <strong class="text-danger">${val}</strong> found at index 0 (HEAD). Freeing node...`;
         highlightLine(1); await sleep(600);
@@ -688,7 +674,6 @@ export const linkedListVisualizer = {
       nodeValInput.value = '';
     }
 
-    // ── 5. DELETE AT PREFERRED 0-BASED INDEX ────────────────────────────────────
     async function deleteAtPosition() {
       const posStr = nodePosInput.value.trim();
       if (isAnimating) return;
@@ -749,7 +734,6 @@ export const linkedListVisualizer = {
       nodePosInput.value = '';
     }
 
-    // ── 6. SEARCH VALUE (Returns 0-based index) ─────────────────────────────────
     async function searchVal() {
       const val = nodeValInput.value.trim();
       if (!val || isAnimating) return;
@@ -796,7 +780,6 @@ export const linkedListVisualizer = {
       setControlsDisabled(false);
     }
 
-    // ── Event Handlers ──────────────────────────────────────────────────────────
     listTypeSelect.addEventListener('change', () => {
       if (!isAnimating) {
         currentListType = listTypeSelect.value;
@@ -831,7 +814,6 @@ export const linkedListVisualizer = {
       }
     });
 
-    // Initial render
     renderListUI();
     renderCode('insertHead');
   }

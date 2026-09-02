@@ -42,12 +42,13 @@
 
 .visualizer-canvas-panel, .card-panel {
   background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--card-border-tint);
+  border-radius: var(--bs-card-border-radius);
   padding: var(--space-4);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  box-shadow: var(--shadow-card);
 }
 
 .visualizer-controls {
@@ -72,8 +73,8 @@
   padding: 8px 12px;
   background: var(--bg-subsurface);
   border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--primary);
-  border-radius: var(--radius-md);
+  border-left: 3px solid var(--bs-primary);
+  border-radius: var(--radius-sm);
   text-align: center;
   font-family: var(--font-mono);
   font-weight: 500;
@@ -95,6 +96,7 @@
   overflow: hidden;
   height: 100%;
   min-height: 320px;
+  font-family: var(--font-mono);
 }
 
 .debugger-header {
@@ -115,7 +117,7 @@
 .debugger-body {
   padding: 12px;
   overflow-y: auto;
-  font-family: var(--font-mono);
+  font-family: var(--font-mono) !important;
   font-size: var(--font-xs);
   line-height: 1.6;
   color: var(--code-text);
@@ -123,6 +125,7 @@
 }
 
 .code-line {
+  font-family: var(--font-mono) !important;
   padding: 3px 8px;
   border-radius: var(--radius-xs);
   white-space: pre;
@@ -137,6 +140,20 @@
   border-left: 3px solid var(--code-highlight) !important;
 }
 
+/* ─── Global Visualizer Workspace Canvases (Subtle Dot Grid) ─── */
+.visualizer-canvas,
+.bars-container,
+.ll-canvas,
+.hash-table-grid,
+.tree-canvas,
+.graph-canvas,
+.hanoi-stage {
+  background-color: var(--bg-canvas) !important;
+  background-image: radial-gradient(circle, var(--visualizer-dot) 1px, transparent 1px) !important;
+  background-size: 24px 24px !important;
+  background-position: 0 0 !important;
+}
+
 /* 1. Sorting Visualizer */
 .bars-container {
   height: 250px;
@@ -145,7 +162,6 @@
   justify-content: center;
   gap: 2px;
   padding: 12px 6px;
-  background: var(--bg-canvas);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
   overflow-x: hidden;
@@ -270,8 +286,7 @@
   align-items: center;
   overflow-x: auto;
   padding: 24px 12px;
-  background: var(--bg-canvas);
-  border-radius: var(--radius-md);
+  border-radius: var(--bs-card-border-radius);
   border: 1px solid var(--border-subtle);
   -webkit-overflow-scrolling: touch;
 }
@@ -435,8 +450,7 @@
   grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
   gap: 8px;
   padding: 12px;
-  background: var(--bg-canvas);
-  border-radius: var(--radius-md);
+  border-radius: var(--bs-card-border-radius);
   border: 1px solid var(--border-subtle);
   max-height: 350px;
   overflow-y: auto;
@@ -511,8 +525,7 @@
 /* 4. BST Visualizer */
 .tree-canvas {
   height: 320px;
-  background: var(--bg-canvas);
-  border-radius: var(--radius-md);
+  border-radius: var(--bs-card-border-radius);
   border: 1px solid var(--border-subtle);
   position: relative;
   overflow: hidden;
@@ -576,7 +589,7 @@
 .traversal-output-bar {
   padding: 8px 12px;
   background: var(--code-bg);
-  border-radius: var(--radius-md);
+  border-radius: var(--bs-border-radius);
   color: var(--code-text);
   font-family: var(--font-mono);
   font-size: var(--font-xs);
@@ -588,8 +601,7 @@
 /* 5. Graph Visualizer */
 .graph-canvas {
   height: 320px;
-  background: var(--bg-canvas);
-  border-radius: var(--radius-md);
+  border-radius: var(--bs-card-border-radius);
   border: 1px solid var(--border-subtle);
   position: relative;
   overflow: hidden;
@@ -660,8 +672,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-2);
   padding: 12px;
-  background: var(--bg-canvas);
-  border-radius: var(--radius-md);
+  border-radius: var(--bs-card-border-radius);
   border: 1px solid var(--border-subtle);
 }
 

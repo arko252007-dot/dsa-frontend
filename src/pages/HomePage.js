@@ -19,11 +19,6 @@ export const HomePage = {
             
             <div class="col-12 col-lg-7">
               <div class="pe-lg-4">
-                <div class="d-inline-flex align-items-center gap-2 px-2 py-1 rounded-pill bg-subsurface border mb-3">
-                  <span class="badge bg-primary text-white" style="font-size: 0.7rem;">Free & Open</span>
-                  <span class="text-secondary small font-mono" style="font-size: var(--font-xs);">Master DSA with C & Live Visualizers</span>
-                </div>
-
                 <h1 class="fw-bold display-6 mb-3">
                   Master Data Structures &amp; Algorithms in <span class="text-primary">C</span>
                 </h1>
@@ -40,7 +35,7 @@ export const HomePage = {
                     <div class="col-6 col-sm-4">
                       <a href="/visualizer/tree" class="card card-body p-2 p-md-3 text-decoration-none border h-100 visualizer-hub-card">
                         <div class="d-flex align-items-center gap-2 mb-1">
-                          <i class="bi bi-diagram-2 text-warning fs-5"></i>
+                          <i class="bi bi-diagram-2 text-danger fs-5"></i>
                           <span class="fw-semibold text-truncate small">BST & Trees</span>
                         </div>
                         <span class="text-muted text-truncate" style="font-size: var(--font-xs);">Inorder, Pre, Post</span>
@@ -49,7 +44,7 @@ export const HomePage = {
                     <div class="col-6 col-sm-4">
                       <a href="/visualizer/hanoi" class="card card-body p-2 p-md-3 text-decoration-none border h-100 visualizer-hub-card">
                         <div class="d-flex align-items-center gap-2 mb-1">
-                          <i class="bi bi-arrow-repeat text-info fs-5"></i>
+                          <i class="bi bi-arrow-repeat text-warning fs-5"></i>
                           <span class="fw-semibold text-truncate small">Tower of Hanoi</span>
                         </div>
                         <span class="text-muted text-truncate" style="font-size: var(--font-xs);">Recursion & Stack</span>
@@ -58,7 +53,7 @@ export const HomePage = {
                     <div class="col-6 col-sm-4">
                       <a href="/visualizer/sorting" class="card card-body p-2 p-md-3 text-decoration-none border h-100 visualizer-hub-card">
                         <div class="d-flex align-items-center gap-2 mb-1">
-                          <i class="bi bi-bar-chart-steps text-success fs-5"></i>
+                          <i class="bi bi-bar-chart-steps text-warning fs-5"></i>
                           <span class="fw-semibold text-truncate small">Sorting</span>
                         </div>
                         <span class="text-muted text-truncate" style="font-size: var(--font-xs);">Quick, Merge, Bubble</span>
@@ -67,7 +62,7 @@ export const HomePage = {
                     <div class="col-6 col-sm-4">
                       <a href="/visualizer/linked-list" class="card card-body p-2 p-md-3 text-decoration-none border h-100 visualizer-hub-card">
                         <div class="d-flex align-items-center gap-2 mb-1">
-                          <i class="bi bi-diagram-3 text-primary fs-5"></i>
+                          <i class="bi bi-diagram-3 text-success fs-5"></i>
                           <span class="fw-semibold text-truncate small">Linked Lists</span>
                         </div>
                         <span class="text-muted text-truncate" style="font-size: var(--font-xs);">SLL, DLL, Circular</span>
@@ -76,7 +71,7 @@ export const HomePage = {
                     <div class="col-6 col-sm-4">
                       <a href="/visualizer/graph" class="card card-body p-2 p-md-3 text-decoration-none border h-100 visualizer-hub-card">
                         <div class="d-flex align-items-center gap-2 mb-1">
-                          <i class="bi bi-diagram-3-fill text-danger fs-5"></i>
+                          <i class="bi bi-diagram-3-fill text-primary fs-5"></i>
                           <span class="fw-semibold text-truncate small">Graph (BFS/DFS)</span>
                         </div>
                         <span class="text-muted text-truncate" style="font-size: var(--font-xs);">Queue & Stack Trace</span>
@@ -85,7 +80,7 @@ export const HomePage = {
                     <div class="col-6 col-sm-4">
                       <a href="/visualizer/hashing" class="card card-body p-2 p-md-3 text-decoration-none border h-100 visualizer-hub-card">
                         <div class="d-flex align-items-center gap-2 mb-1">
-                          <i class="bi bi-grid-3x3 text-secondary fs-5"></i>
+                          <i class="bi bi-grid-3x3 text-info fs-5"></i>
                           <span class="fw-semibold text-truncate small">Hash Tables</span>
                         </div>
                         <span class="text-muted text-truncate" style="font-size: var(--font-xs);">Linear Probing</span>
@@ -95,8 +90,10 @@ export const HomePage = {
                 </div>
 
                 <div class="d-flex align-items-center gap-3 flex-wrap">
-                  <a href="/visualizations" class="btn btn-outline-primary py-2 px-3 fw-medium">
-                    <i class="bi bi-play-circle me-1"></i> Browse All Visualizers
+                  <a href="/visualizations" class="btn btn-outline-primary py-2 px-3 fw-medium d-inline-flex align-items-center gap-2">
+                    <i class="bi bi-play-circle"></i>
+                    <span>Browse All Visualizers</span>
+                    <i class="bi bi-arrow-right small"></i>
                   </a>
                 </div>
               </div>

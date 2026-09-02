@@ -220,6 +220,7 @@ export const treeVisualizer = {
       }
 
       let curr = root;
+      // Shrink horizontal span per depth level to prevent overlapping sibling subtrees
       let dx = 24;
 
       while (true) {
@@ -274,6 +275,7 @@ export const treeVisualizer = {
           }
           curr = curr.right;
         } else {
+          // Standard BST ignores duplicate values
           statusText.innerHTML = `<span class="text-warning">Value ${val} already exists in BST (Duplicate ignored).</span>`;
           if (currElem) currElem.classList.remove('highlight');
           break;
