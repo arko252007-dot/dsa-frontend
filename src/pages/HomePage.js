@@ -605,7 +605,7 @@ export const HomePage = {
           if (userData && userData.solvedProblems) {
             StorageManager.setSolvedProblems(userData.solvedProblems);
           }
-          StorageManager.saveUserName(userData.username);
+          StorageManager.saveUserName(userData.username, passwordVal);
         } catch (err) {
           console.error('Auth error:', err);
           showAuthError(err.message || 'Authentication failed. Please check credentials.');

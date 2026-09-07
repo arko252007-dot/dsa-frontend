@@ -2,20 +2,34 @@ import { Api } from './api.js';
 
 const STORAGE_KEYS = {
   USER_NAME: 'dsa_student_name',
+  USER_PASS: 'dsa_student_pass',
   SOLVED_PROBLEMS: 'dsa_solved_problems',
   THEME: 'dsa_theme',
 };
 
 export const StorageManager = {
-  saveUserName(name) {
+  saveUserName(name, password = null) {
     if (typeof name === 'string') {
       localStorage.setItem(STORAGE_KEYS.USER_NAME, name.trim());
+      if (typeof password === 'string' && password) {
+        localStorage.setItem(STORAGE_KEYS.USER_PASS, password);
+      }
       window.dispatchEvent(new CustomEvent('authChanged', { detail: { username: name.trim() } }));
+    }
+  },
+
+  saveUserPassword(password) {
+    if (typeof password === 'string') {
+      localStorage.setItem(STORAGE_KEYS.USER_PASS, password);
     }
   },
 
   getUserName() {
     return localStorage.getItem(STORAGE_KEYS.USER_NAME) || '';
+  },
+
+  getUserPassword() {
+    return localStorage.getItem(STORAGE_KEYS.USER_PASS) || '';
   },
 
   isLoggedIn() {
@@ -24,6 +38,7 @@ export const StorageManager = {
 
   logout() {
     localStorage.removeItem(STORAGE_KEYS.USER_NAME);
+    localStorage.removeItem(STORAGE_KEYS.USER_PASS);
     localStorage.removeItem(STORAGE_KEYS.SOLVED_PROBLEMS);
     window.dispatchEvent(new CustomEvent('authChanged', { detail: { username: '' } }));
   },
@@ -57,6 +72,7 @@ export const StorageManager = {
 
     const solved = this.getSolvedProblems();
     const username = this.getUserName();
+    const password = this.getUserPassword();
 
     if (isSolved) {
       solved[key] = {
@@ -69,7 +85,7 @@ export const StorageManager = {
 
     if (username) {
       try {
-        await Api.toggleSolve(username, key, isSolved);
+        await Api.toggleSolve(username, password, key, isSolved);
       } catch (err) {
         console.error('Failed to sync solve state to DB:', err);
       }

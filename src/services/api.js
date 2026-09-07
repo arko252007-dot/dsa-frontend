@@ -71,10 +71,16 @@ export const Api = {
     return apiFetch(`/users/${encodeURIComponent(username)}`);
   },
 
-  toggleSolve(username, problemId, isSolved) {
+  toggleSolve(username, password, problemId, isSolved) {
+    let payload;
+    if (typeof username === 'object' && username !== null) {
+      payload = username;
+    } else {
+      payload = { username, password, problemId, isSolved };
+    }
     return apiFetch('/users/solve', {
       method: 'POST',
-      body: JSON.stringify({ username, problemId, isSolved }),
+      body: JSON.stringify(payload),
     });
   },
 };
